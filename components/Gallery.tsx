@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Photo from "./Photo";
 import Reveal from "./Reveal";
 
@@ -10,10 +10,14 @@ const items = [
   { src: "/images/arena.jpg", preview: "/images/lightbox/arena.jpg", alt: "Jízdárna a stáje", caption: "Stáje a jízdárna", span: "" },
   { src: "/images/arial-2.jpg", preview: "/images/lightbox/arial-2.jpg", alt: "Areál v podvečerním světle", caption: "Podvečerní světlo", span: "lg:col-span-2" },
   { src: "/images/house-arena.jpg", preview: "/images/lightbox/house-arena.jpg", alt: "Dům a jízdárna", caption: "Dům a zázemí", span: "" },
+  { src: "/images/arial-3.jpg", preview: "/images/lightbox/arial-3.jpg", alt: "Areál z ptačí perspektivy", caption: "Areál a okolí", span: "lg:col-span-2" },
+  { src: "/images/house.jpg", preview: "/images/lightbox/house.jpg", alt: "Dům v podvečerním světle", caption: "Dům k ubytování", span: "" },
 ];
 
 export default function Gallery() {
   const [open, setOpen] = useState<number | null>(null);
+
+  const touchX = useRef<number | null>(null);
 
   const close = useCallback(() => setOpen(null), []);
   const next = useCallback(
@@ -107,10 +111,25 @@ export default function Gallery() {
         <div
           className="fixed inset-0 z-[100] flex items-center justify-center bg-navy-900/95 p-4 backdrop-blur-sm sm:p-8"
           onClick={close}
+          onTouchStart={(e) => {
+            touchX.current = e.touches[0].clientX;
+          }}
+          onTouchEnd={(e) => {
+            if (touchX.current === null) return;
+            const dx = e.changedTouches[0].clientX - touchX.current;
+            if (dx > 45) prev();
+            else if (dx < -45) next();
+            touchX.current = null;
+          }}
           role="dialog"
           aria-modal="true"
           aria-label={active.caption}
         >
+          {/* Počítadlo */}
+          <span className="absolute left-1/2 top-5 -translate-x-1/2 text-[0.72rem] font-semibold uppercase tracking-[0.2em] text-white/60 sm:top-6">
+            {(open ?? 0) + 1} / {items.length}
+          </span>
+
           <button
             type="button"
             onClick={close}

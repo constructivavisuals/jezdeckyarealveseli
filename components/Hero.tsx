@@ -1,9 +1,18 @@
 import Photo from "./Photo";
+import CountUp from "./CountUp";
 
-const facts = [
-  { k: "14", v: "stájových boxů" },
-  { k: "≈ 5 ha", v: "rozloha areálu" },
-  { k: "≈ 1000 m²", v: "venkovní jízdárna" },
+type Fact = {
+  v: string;
+  k?: string;
+  n?: number;
+  prefix?: string;
+  suffix?: string;
+};
+
+const facts: Fact[] = [
+  { n: 14, v: "stájových boxů" },
+  { n: 5, prefix: "≈ ", suffix: " ha", v: "rozloha areálu" },
+  { n: 1000, prefix: "≈ ", suffix: " m²", v: "venkovní jízdárna" },
   { k: "2v1", v: "byty nebo dům" },
 ];
 
@@ -39,18 +48,29 @@ export default function Hero() {
           <div className="mt-12 flex flex-col gap-4 sm:flex-row sm:justify-center">
             <a
               href="#kontakt"
-              className="rounded-none bg-white px-9 py-4 text-xs font-semibold uppercase tracking-[0.16em] text-navy-900 transition-colors duration-300 hover:bg-navy-100"
+              className="rounded-none bg-white px-9 py-4 text-xs font-semibold uppercase tracking-[0.16em] text-navy-900 transition duration-300 hover:-translate-y-0.5 hover:bg-navy-100"
             >
               Nezávazně poptat
             </a>
             <a
               href="#o-arealu"
-              className="rounded-none border border-white/45 px-9 py-4 text-xs font-semibold uppercase tracking-[0.16em] text-white backdrop-blur-sm transition-colors duration-300 hover:bg-white hover:text-navy-900"
+              className="rounded-none border border-white/45 px-9 py-4 text-xs font-semibold uppercase tracking-[0.16em] text-white backdrop-blur-sm transition duration-300 hover:-translate-y-0.5 hover:bg-white hover:text-navy-900"
             >
               Prohlédnout areál
             </a>
           </div>
         </div>
+
+        {/* Scroll indikátor */}
+        <a
+          href="#o-arealu"
+          aria-label="Posunout na obsah"
+          className="mx-auto mb-5 hidden text-white/65 transition-colors hover:text-white sm:block"
+        >
+          <svg className="scrollcue" width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden>
+            <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </a>
 
         {/* Spodní stat strip */}
         <div className="grid grid-cols-2 border-t border-white/15 py-6 sm:grid-cols-4">
@@ -59,7 +79,13 @@ export default function Hero() {
               key={f.v}
               className={`px-1 py-2 sm:px-5 ${i !== 0 ? "sm:border-l sm:border-white/15" : ""}`}
             >
-              <div className="display text-2xl text-white sm:text-3xl">{f.k}</div>
+              <div className="display text-2xl text-white sm:text-3xl">
+                {f.n !== undefined ? (
+                  <CountUp value={f.n} prefix={f.prefix} suffix={f.suffix} />
+                ) : (
+                  f.k
+                )}
+              </div>
               <div className="mt-1 text-[0.62rem] uppercase tracking-[0.18em] text-white/60">
                 {f.v}
               </div>
