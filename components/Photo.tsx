@@ -12,6 +12,8 @@ type PhotoProps = {
   fill?: boolean;
   width?: number;
   height?: number;
+  /** Responsivní sizes pro next/image — ať se nestahuje zbytečně velká varianta. */
+  sizes?: string;
 };
 
 export default function Photo({
@@ -23,6 +25,7 @@ export default function Photo({
   fill = true,
   width,
   height,
+  sizes = "100vw",
 }: PhotoProps) {
   if (src) {
     return (
@@ -33,7 +36,7 @@ export default function Photo({
         width={fill ? undefined : width}
         height={fill ? undefined : height}
         priority={priority}
-        sizes="100vw"
+        sizes={sizes}
         className={`object-cover ${className}`}
       />
     );

@@ -6,6 +6,9 @@ const nav = [
   { href: "#kontakt", label: "Kontakt" },
 ];
 
+// TODO: doplň reálný odkaz na FB profil (pak se odkaz v patičce zobrazí).
+const FACEBOOK_URL = "";
+
 export default function Footer() {
   return (
     <footer className="border-t border-white/10 bg-navy-900 px-6 py-16 text-white lg:px-12">
@@ -35,13 +38,17 @@ export default function Footer() {
                 </a>
               ))}
             </nav>
-            {/* TODO: doplň reálný odkaz na FB */}
-            <a
-              href="#"
-              className="text-[0.72rem] font-medium uppercase tracking-[0.16em] text-white/60 transition-colors hover:text-white"
-            >
-              Facebook ↗
-            </a>
+            {/* FB odkaz se zobrazí, jakmile bude reálná adresa profilu. */}
+            {FACEBOOK_URL && (
+              <a
+                href={FACEBOOK_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[0.72rem] font-medium uppercase tracking-[0.16em] text-white/60 transition-colors hover:text-white"
+              >
+                Facebook ↗
+              </a>
+            )}
           </div>
         </div>
 

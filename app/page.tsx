@@ -9,9 +9,38 @@ import Gallery from "@/components/Gallery";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  name: "Jezdecký areál Vysoké Veselí",
+  description:
+    "Kompletní jezdecký areál ve Vysokém Veselí k pronájmu jako celek — 14 stájových boxů, venkovní jízdárna, výběhy, zázemí a ubytování.",
+  url: "https://jezdeckyarealveseli.cz",
+  telephone: "+420739630737",
+  email: "info@jezdeckyarealveseli.cz",
+  image: "https://jezdeckyarealveseli.cz/opengraph-image.jpg",
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Vysoké Veselí",
+    postalCode: "507 03",
+    addressRegion: "Královéhradecký kraj",
+    addressCountry: "CZ",
+  },
+  geo: {
+    "@type": "GeoCoordinates",
+    latitude: 50.3117,
+    longitude: 15.4036,
+  },
+  areaServed: "Český ráj",
+};
+
 export default function Home() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <Navbar />
       <main>
         <Hero />

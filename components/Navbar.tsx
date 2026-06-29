@@ -74,7 +74,9 @@ export default function Navbar() {
 
         <button
           type="button"
-          aria-label="Menu"
+          aria-label={open ? "Zavřít menu" : "Otevřít menu"}
+          aria-expanded={open}
+          aria-controls="mobile-menu"
           onClick={() => setOpen((v) => !v)}
           className={`lg:hidden ${scrolled ? "text-navy-900" : "text-white"}`}
         >
@@ -90,6 +92,7 @@ export default function Navbar() {
 
       {/* Mobilní menu */}
       <div
+        id="mobile-menu"
         className={`overflow-hidden bg-navy-900 transition-[max-height] duration-500 lg:hidden ${
           open ? "max-h-[420px]" : "max-h-0"
         }`}

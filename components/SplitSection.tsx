@@ -36,7 +36,12 @@ export default function SplitSection({
             reverse ? "lg:order-2" : "lg:order-1"
           }`}
         >
-          <Photo src={imageSrc} alt={imageAlt} label={imageLabel} />
+          <Photo
+            src={imageSrc}
+            alt={imageAlt}
+            label={imageLabel}
+            sizes="(min-width: 1024px) 50vw, 100vw"
+          />
         </div>
 
         {/* Text */}

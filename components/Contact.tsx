@@ -102,6 +102,7 @@ export default function Contact() {
                   value={form.name}
                   onChange={handleChange}
                   required
+                  autoComplete="name"
                   className={inputClass}
                   placeholder="Vaše jméno"
                 />

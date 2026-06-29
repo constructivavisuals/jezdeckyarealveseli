@@ -126,6 +126,9 @@ body {
     transform: none;
     transition: none;
   }
+  .kenburns {
+    animation: none;
+  }
 }
 
 /* ---------- Ken Burns na hero ---------- */

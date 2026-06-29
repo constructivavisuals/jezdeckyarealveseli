@@ -40,7 +40,11 @@ export default function Gallery() {
               delay={(i % 4) * 80}
               className={`zoomable group relative overflow-hidden ${it.span}`}
             >
-              <Photo src={it.src} alt={it.alt} />
+              <Photo
+                src={it.src}
+                alt={it.alt}
+                sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+              />
               <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-navy-900/70 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
               <span className="pointer-events-none absolute bottom-4 left-4 translate-y-2 text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-white opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
                 {it.caption}
