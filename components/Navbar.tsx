@@ -52,7 +52,7 @@ export default function Navbar() {
             <a
               key={l.href}
               href={l.href}
-              className={`text-[0.72rem] font-medium uppercase tracking-[0.14em] transition-colors duration-300 ${
+              className={`relative text-[0.72rem] font-medium uppercase tracking-[0.14em] transition-colors duration-300 after:absolute after:-bottom-1.5 after:left-0 after:h-px after:w-0 after:bg-current after:transition-[width] after:duration-300 hover:after:w-full ${
                 scrolled
                   ? "text-navy-600 hover:text-navy-900"
                   : "text-white/80 hover:text-white"

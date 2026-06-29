@@ -17,7 +17,7 @@ const items = [
 
 export default function Possibilities() {
   return (
-    <section className="bg-navy-900 px-6 py-24 text-white lg:px-12 lg:py-36">
+    <section id="moznosti" className="bg-navy-900 px-6 py-24 text-white lg:px-12 lg:py-36">
       <div className="mx-auto max-w-7xl">
         <Reveal>
           <div className="flex items-center gap-4 text-navy-300">
@@ -35,16 +35,21 @@ export default function Possibilities() {
         <div className="mt-16 border-t border-white/15">
           {items.map((it, i) => (
             <Reveal key={it.title} delay={i * 100}>
-              <div className="group grid grid-cols-1 items-start gap-4 border-b border-white/15 py-9 transition-colors duration-300 hover:bg-white/[0.03] sm:grid-cols-12 sm:gap-8 sm:py-12">
-                <div className="index text-2xl text-navy-300 sm:col-span-2 sm:text-3xl">
+              <div className="group relative grid grid-cols-1 items-start gap-4 border-b border-white/15 py-9 transition-colors duration-300 hover:bg-white/[0.03] sm:grid-cols-12 sm:gap-8 sm:py-12">
+                <div className="index text-2xl text-navy-300 transition-colors duration-300 group-hover:text-white sm:col-span-2 sm:text-3xl">
                   0{i + 1}
                 </div>
                 <h3 className="text-2xl font-bold tracking-tight text-white sm:col-span-4 sm:text-3xl">
                   {it.title}
                 </h3>
-                <p className="text-lg leading-relaxed text-white/70 sm:col-span-6">
+                <p className="text-lg leading-relaxed text-white/70 sm:col-span-5">
                   {it.text}
                 </p>
+                <div className="hidden items-start justify-end text-navy-300 sm:col-span-1 sm:flex">
+                  <span className="text-2xl transition-all duration-300 group-hover:translate-x-1 group-hover:text-white">
+                    →
+                  </span>
+                </div>
               </div>
             </Reveal>
           ))}
