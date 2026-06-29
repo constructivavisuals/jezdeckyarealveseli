@@ -7,8 +7,8 @@ const features = [
     icon: <path d="M3 21V8l9-5 9 5v13M9 21v-6h6v6M7 11h.01M17 11h.01" />,
   },
   {
-    title: "Jízdárna",
-    text: "Prostor pro každodenní trénink, výcvik i práci s koňmi za každého počasí.",
+    title: "Venkovní jízdárna",
+    text: "Prostor pro každodenní trénink, výcvik i práci s koňmi v přírodním prostředí.",
     icon: <path d="M3 18h18M5 18V9l7-4 7 4v9M9 18v-4h6v4" />,
   },
   {
@@ -17,8 +17,8 @@ const features = [
     icon: <path d="M4 20V7M9 20V4M14 20v-9M19 20V6" />,
   },
   {
-    title: "Seník & slamník",
-    text: "Krytá kapacita pro skladování sena a slámy (stany) — zásoby po ruce po celý rok.",
+    title: "Seník a slamník",
+    text: "Krytá kapacita pro uskladnění sena a slámy (stany) — zásoby po ruce po celý rok.",
     icon: <path d="M3 21V10l9-6 9 6v11M3 21h18M8 21v-6h8v6" />,
   },
   {
@@ -31,6 +31,14 @@ const features = [
     text: "Možnost pronájmu manipulační techniky pro provoz a údržbu areálu.",
     icon: (
       <path d="M3 17h13v-5H8L3 17zM16 17h5v-3l-3-1M6 20a2 2 0 100-4 2 2 0 000 4zM18 20a2 2 0 100-4 2 2 0 000 4z" />
+    ),
+  },
+  {
+    title: "Solární panely",
+    text: "Fotovoltaika na střechách objektů — úspora nákladů na energie v každodenním provozu areálu.",
+    wide: true,
+    icon: (
+      <path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6l1.4 1.4M17 17l1.4 1.4M18.4 5.6 17 7M7 17l-1.4 1.4M12 8a4 4 0 100 8 4 4 0 000-8z" />
     ),
   },
 ];
@@ -59,7 +67,9 @@ export default function Features() {
             <Reveal
               key={f.title}
               delay={(i % 3) * 90}
-              className="group relative border-b border-r border-navy-100 bg-mist p-8 transition-colors duration-300 hover:bg-white lg:p-10"
+              className={`group relative border-b border-r border-navy-100 bg-mist p-8 transition-colors duration-300 hover:bg-white lg:p-10 ${
+                "wide" in f && f.wide ? "sm:col-span-2 lg:col-span-3" : ""
+              }`}
             >
               <div className="flex items-start justify-between">
                 <span className="index text-sm text-navy-300">0{i + 1}</span>

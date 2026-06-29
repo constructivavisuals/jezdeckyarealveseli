@@ -1,4 +1,5 @@
 import Reveal from "./Reveal";
+import VideoFrame from "./VideoFrame";
 
 const pillars = [
   {
@@ -7,7 +8,7 @@ const pillars = [
   },
   {
     t: "Bydlení na místě",
-    d: "Dům a dva samostatné byty umožní provozovateli bydlet přímo v areálu.",
+    d: "Využijte celý dům, nebo dva samostatné byty — provozovatel může bydlet přímo v areálu.",
   },
   {
     t: "Celek k pronájmu",
@@ -29,19 +30,23 @@ export default function Intro() {
           </div>
         </Reveal>
 
-        <div className="mt-12 grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-16">
-          <Reveal className="lg:col-span-7">
-            <h2 className="display-light text-4xl text-navy-900 sm:text-5xl lg:text-[3.7rem]">
-              Funkční jezdecké zázemí připravené k převzetí jako&nbsp;celek
-            </h2>
-          </Reveal>
-          <Reveal delay={120} className="flex items-end lg:col-span-5">
+        <Reveal>
+          <h2 className="mt-10 max-w-4xl display-light text-4xl text-navy-900 sm:text-5xl lg:text-[3.6rem]">
+            Funkční jezdecké zázemí připravené k převzetí jako&nbsp;celek
+          </h2>
+        </Reveal>
+
+        <div className="mt-14 grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-16">
+          <Reveal className="flex flex-col justify-end lg:col-span-5">
             <p className="text-lg leading-relaxed text-ink/70">
               Jezdecký areál ve Vysokém Veselí nabízí kompletní podmínky pro
               ustájení koní i pohodlí jejich majitelů. Stáje, jízdárna, výběhy,
               seník i samostatné ubytování — vše na jednom místě a připravené k
               tomu, aby si sem nový provozovatel mohl rovnou nastěhovat koně.
             </p>
+          </Reveal>
+          <Reveal delay={120} className="lg:col-span-7">
+            <VideoFrame />
           </Reveal>
         </div>
 

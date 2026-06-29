@@ -17,7 +17,7 @@ export default function Gallery() {
           <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
             <div>
               <div className="flex items-center gap-4 text-navy-400">
-                <span className="index text-sm">08</span>
+                <span className="index text-sm">07</span>
                 <span className="h-px w-10 bg-navy-200" />
                 <span className="text-[0.7rem] font-semibold uppercase tracking-[0.22em]">
                   Galerie

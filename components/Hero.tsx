@@ -1,9 +1,9 @@
 import Photo from "./Photo";
 
 const facts = [
-  { k: "14", v: "ustajovacích boxů" },
-  { k: "1", v: "krytá jízdárna" },
-  { k: "2+1", v: "byty a dům" },
+  { k: "14", v: "stájových boxů" },
+  { k: "1", v: "venkovní jízdárna" },
+  { k: "2v1", v: "byty nebo dům" },
   { k: "20 min", v: "do Českého ráje" },
 ];
 

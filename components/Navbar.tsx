@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 const links = [
   { href: "#o-arealu", label: "Areál" },
   { href: "#vybaveni", label: "Vybavení" },
-  { href: "#video", label: "Video" },
   { href: "#ustajeni", label: "Ustájení" },
   { href: "#poloha", label: "Poloha" },
   { href: "#galerie", label: "Galerie" },

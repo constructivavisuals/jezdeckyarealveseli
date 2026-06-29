@@ -3,10 +3,10 @@
 import { useState } from "react";
 import Reveal from "./Reveal";
 
-// TODO: doplň reálné kontaktní údaje
-const CONTACT_EMAIL = "info@example.cz";
-const CONTACT_PHONE = "+420 000 000 000";
-const CONTACT_PERSON = "Jméno Příjmení";
+const CONTACT_EMAIL = "info@jezdeckyarealveseli.cz";
+const CONTACT_PHONE = "+420 739 630 737";
+// TODO: doplň jméno kontaktní osoby (zatím skryto)
+const CONTACT_PERSON = "";
 
 export default function Contact() {
   const [form, setForm] = useState({
@@ -41,7 +41,7 @@ export default function Contact() {
       <div className="mx-auto max-w-7xl">
         <Reveal>
           <div className="flex items-center gap-4 text-navy-300">
-            <span className="index text-sm">09</span>
+            <span className="index text-sm">08</span>
             <span className="h-px w-10 bg-white/25" />
             <span className="text-[0.7rem] font-semibold uppercase tracking-[0.22em]">
               Kontakt
@@ -62,15 +62,17 @@ export default function Contact() {
             </p>
 
             <div className="mt-12 space-y-6 border-t border-white/15 pt-8">
-              <div>
-                <div className="text-[0.62rem] uppercase tracking-[0.22em] text-navy-300">
-                  Kontaktní osoba
+              {CONTACT_PERSON && (
+                <div>
+                  <div className="text-[0.62rem] uppercase tracking-[0.22em] text-navy-300">
+                    Kontaktní osoba
+                  </div>
+                  <div className="mt-2 text-2xl font-bold tracking-tight">
+                    {CONTACT_PERSON}
+                  </div>
                 </div>
-                <div className="mt-2 text-2xl font-bold tracking-tight">
-                  {CONTACT_PERSON}
-                </div>
-              </div>
-              <div className="flex flex-col gap-2 sm:flex-row sm:gap-12">
+              )}
+              <div className="flex flex-col gap-3 sm:flex-row sm:gap-12">
                 <a
                   href={`tel:${CONTACT_PHONE.replace(/\s/g, "")}`}
                   className="text-lg transition-colors hover:text-navy-200"
