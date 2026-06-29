@@ -2,6 +2,7 @@ import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import Intro from "@/components/Intro";
 import Features from "@/components/Features";
+import VideoSection from "@/components/VideoSection";
 import SplitSection from "@/components/SplitSection";
 import Location from "@/components/Location";
 import Possibilities from "@/components/Possibilities";
@@ -17,6 +18,7 @@ export default function Home() {
         <Hero />
         <Intro />
         <Features />
+        <VideoSection />
 
         <SplitSection
           id="ustajeni"
