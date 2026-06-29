@@ -25,8 +25,8 @@ export default function Home() {
           index="04"
           eyebrow="Ustájení"
           title="14 boxů připravených pro vaše koně"
-          imageSrc="/images/arena.jpg"
-          imageAlt="Areál se stájemi a jízdárnou z výšky"
+          imageSrc="/images/stable.jpg"
+          imageAlt="Interiér stáje — prostorná ulička s boxy"
         >
           <p>
             Areál nabízí celkem <strong>14 ustajovacích boxů</strong> — 12 vnitřních
