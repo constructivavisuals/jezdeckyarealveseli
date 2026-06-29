@@ -7,6 +7,9 @@ type RevealProps = {
   className?: string;
   delay?: number;
   as?: keyof React.JSX.IntrinsicElements;
+  /** Náběh jen přes opacitu (bez transformu) — nutné, když potomek používá
+      position:fixed (transform předka by jinak vytvořil „containing block"). */
+  fade?: boolean;
 };
 
 export default function Reveal({
@@ -14,6 +17,7 @@ export default function Reveal({
   className = "",
   delay = 0,
   as: Tag = "div",
+  fade = false,
 }: RevealProps) {
   const ref = useRef<HTMLElement | null>(null);
   const [visible, setVisible] = useState(false);
@@ -43,7 +47,7 @@ export default function Reveal({
   return (
     <Component
       ref={ref}
-      className={`reveal ${visible ? "is-visible" : ""} ${className}`}
+      className={`${fade ? "reveal-fade" : "reveal"} ${visible ? "is-visible" : ""} ${className}`}
       style={delay ? { transitionDelay: `${delay}ms` } : undefined}
     >
       {children}

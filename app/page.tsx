@@ -1,6 +1,7 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import Intro from "@/components/Intro";
+import AreaMap from "@/components/AreaMap";
 import Features from "@/components/Features";
 import SplitSection from "@/components/SplitSection";
 import Location from "@/components/Location";
@@ -46,11 +47,12 @@ export default function Home() {
       <main>
         <Hero />
         <Intro />
+        <AreaMap />
         <Features />
 
         <SplitSection
           id="ustajeni"
-          index="03"
+          index="04"
           eyebrow="Ustájení"
           title="14 boxů připravených pro vaše koně"
           imageSrc="/images/stable.jpg"
@@ -69,7 +71,7 @@ export default function Home() {
 
         <SplitSection
           id="ubytovani"
-          index="04"
+          index="05"
           eyebrow="Ubytování"
           title="Bydlení přímo v areálu"
           imageSrc="/images/house.jpg"

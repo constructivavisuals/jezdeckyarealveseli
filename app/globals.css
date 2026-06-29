@@ -116,18 +116,30 @@ p {
   transform: translateY(26px);
   transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1),
     transform 1s cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: opacity, transform;
 }
+/* Klidový stav bez transformu — jinak by trvalý transform/will-change
+   vytvářel „containing block" a lámal position:fixed u potomků (popup mapy). */
 .reveal.is-visible {
   opacity: 1;
-  transform: translateY(0);
+  transform: none;
+}
+
+/* Náběh jen přes opacitu (žádný transform v žádné fázi) — pro bloky,
+   jejichž potomek používá position:fixed (interaktivní mapa). */
+.reveal-fade {
+  opacity: 0;
+  transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal-fade.is-visible {
+  opacity: 1;
 }
 
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
   }
-  .reveal {
+  .reveal,
+  .reveal-fade {
     opacity: 1;
     transform: none;
     transition: none;
@@ -184,5 +196,28 @@ p {
   }
   .zoomable:hover img {
     transform: scale(1.05);
+  }
+}
+
+/* ---------- Interaktivní mapa areálu ---------- */
+@keyframes mappin {
+  0% {
+    transform: scale(1);
+    opacity: 0.55;
+  }
+  70% {
+    transform: scale(2.1);
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+.map-pin-ring {
+  animation: mappin 2.4s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .map-pin-ring {
+    animation: none;
   }
 }

@@ -21,7 +21,7 @@ export default function Possibilities() {
       <div className="mx-auto max-w-7xl">
         <Reveal>
           <div className="flex items-center gap-4 text-navy-300">
-            <span className="index text-sm">06</span>
+            <span className="index text-sm">07</span>
             <span className="h-px w-10 bg-white/25" />
             <span className="text-[0.7rem] font-semibold uppercase tracking-[0.22em]">
               Možnosti

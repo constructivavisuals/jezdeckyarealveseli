@@ -49,7 +49,7 @@ export default function Features() {
       <div className="mx-auto max-w-7xl">
         <Reveal>
           <div className="flex items-center gap-4 text-navy-400">
-            <span className="index text-sm">02</span>
+            <span className="index text-sm">03</span>
             <span className="h-px w-10 bg-navy-200" />
             <span className="text-[0.7rem] font-semibold uppercase tracking-[0.22em]">
               Vybavení

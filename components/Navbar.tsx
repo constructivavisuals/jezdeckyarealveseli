@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 
 const links = [
   { href: "#o-arealu", label: "Areál" },
+  { href: "#plan-arealu", label: "Plán" },
   { href: "#vybaveni", label: "Vybavení" },
   { href: "#ustajeni", label: "Ustájení" },
   { href: "#poloha", label: "Poloha" },
