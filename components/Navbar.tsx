@@ -13,6 +13,7 @@ const links = [
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const [active, setActive] = useState("");
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -20,6 +21,41 @@ export default function Navbar() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  // Scrollspy — zvýrazni odkaz na sekci, která je právě v zorném poli.
+  useEffect(() => {
+    const sections = links
+      .map((l) => document.getElementById(l.href.slice(1)))
+      .filter((el): el is HTMLElement => el !== null);
+    if (sections.length === 0) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+        if (visible) setActive("#" + visible.target.id);
+      },
+      { rootMargin: "-45% 0px -50% 0px", threshold: 0 }
+    );
+    sections.forEach((s) => observer.observe(s));
+    return () => observer.disconnect();
+  }, []);
+
+  // Zavři menu Escapem a zamkni scroll pozadí, dokud je otevřené.
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.body.style.overflow = prevOverflow;
+    };
+  }, [open]);
 
   return (
     <header
@@ -47,19 +83,29 @@ export default function Navbar() {
         </a>
 
         <div className="hidden items-center gap-9 lg:flex">
-          {links.map((l) => (
-            <a
-              key={l.href}
-              href={l.href}
-              className={`relative text-[0.72rem] font-medium uppercase tracking-[0.14em] transition-colors duration-300 after:absolute after:-bottom-1.5 after:left-0 after:h-px after:w-0 after:bg-current after:transition-[width] after:duration-300 hover:after:w-full ${
-                scrolled
-                  ? "text-navy-600 hover:text-navy-900"
-                  : "text-white/80 hover:text-white"
-              }`}
-            >
-              {l.label}
-            </a>
-          ))}
+          {links.map((l) => {
+            const isActive = active === l.href;
+            return (
+              <a
+                key={l.href}
+                href={l.href}
+                aria-current={isActive ? "true" : undefined}
+                className={`relative text-[0.72rem] font-medium uppercase tracking-[0.14em] transition-colors duration-300 after:absolute after:-bottom-1.5 after:left-0 after:h-px after:bg-current after:transition-[width] after:duration-300 hover:after:w-full ${
+                  isActive ? "after:w-full" : "after:w-0"
+                } ${
+                  scrolled
+                    ? isActive
+                      ? "text-navy-900"
+                      : "text-navy-600 hover:text-navy-900"
+                    : isActive
+                      ? "text-white"
+                      : "text-white/80 hover:text-white"
+                }`}
+              >
+                {l.label}
+              </a>
+            );
+          })}
           <a
             href="#kontakt"
             className={`px-5 py-2.5 text-[0.72rem] font-semibold uppercase tracking-[0.14em] transition-all duration-300 ${

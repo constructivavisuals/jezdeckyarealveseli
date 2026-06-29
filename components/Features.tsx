@@ -8,7 +8,7 @@ const features = [
   },
   {
     title: "Venkovní jízdárna",
-    text: "Prostor pro každodenní trénink, výcvik i práci s koňmi v přírodním prostředí.",
+    text: "Prostorná jízdárna o rozloze přibližně 1000 m² pro každodenní trénink, výcvik i práci s koňmi v přírodním prostředí.",
     icon: <path d="M3 18h18M5 18V9l7-4 7 4v9M9 18v-4h6v4" />,
   },
   {

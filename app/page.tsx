@@ -8,6 +8,7 @@ import Possibilities from "@/components/Possibilities";
 import Gallery from "@/components/Gallery";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
+import StickyCta from "@/components/StickyCta";
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -92,6 +93,7 @@ export default function Home() {
         <Contact />
       </main>
       <Footer />
+      <StickyCta />
     </>
   );
 }

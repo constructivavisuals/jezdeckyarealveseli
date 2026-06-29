@@ -2,9 +2,9 @@ import Photo from "./Photo";
 
 const facts = [
   { k: "14", v: "stájových boxů" },
-  { k: "1", v: "venkovní jízdárna" },
+  { k: "≈ 5 ha", v: "rozloha areálu" },
+  { k: "≈ 1000 m²", v: "venkovní jízdárna" },
   { k: "2v1", v: "byty nebo dům" },
-  { k: "20 min", v: "do Českého ráje" },
 ];
 
 export default function Hero() {

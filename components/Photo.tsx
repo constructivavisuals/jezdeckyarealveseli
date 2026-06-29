@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { blurData } from "@/lib/blurData";
 
 type PhotoProps = {
   /** Cesta k fotce v /public, např. "/images/hero.jpg". Když chybí, zobrazí se placeholder. */
@@ -28,6 +29,7 @@ export default function Photo({
   sizes = "100vw",
 }: PhotoProps) {
   if (src) {
+    const blur = blurData[src];
     return (
       <Image
         src={src}
@@ -37,6 +39,8 @@ export default function Photo({
         height={fill ? undefined : height}
         priority={priority}
         sizes={sizes}
+        placeholder={blur ? "blur" : undefined}
+        blurDataURL={blur}
         className={`object-cover ${className}`}
       />
     );

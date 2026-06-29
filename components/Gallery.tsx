@@ -1,5 +1,10 @@
+"use client";
+
+import { useCallback, useEffect, useState } from "react";
+import Image from "next/image";
 import Photo from "./Photo";
 import Reveal from "./Reveal";
+import { blurData } from "@/lib/blurData";
 
 const items = [
   { src: "/images/overview.jpg", alt: "Areál z výšky", caption: "Celkový pohled", span: "lg:col-span-2 lg:row-span-2" },
@@ -10,6 +15,39 @@ const items = [
 ];
 
 export default function Gallery() {
+  const [open, setOpen] = useState<number | null>(null);
+
+  const close = useCallback(() => setOpen(null), []);
+  const next = useCallback(
+    () => setOpen((i) => (i === null ? i : (i + 1) % items.length)),
+    []
+  );
+  const prev = useCallback(
+    () => setOpen((i) => (i === null ? i : (i - 1 + items.length) % items.length)),
+    []
+  );
+
+  useEffect(() => {
+    if (open === null) return;
+    // Zámek scrollu na pozadí.
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") close();
+      else if (e.key === "ArrowRight") next();
+      else if (e.key === "ArrowLeft") prev();
+    };
+    window.addEventListener("keydown", onKey);
+
+    return () => {
+      document.body.style.overflow = prevOverflow;
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [open, close, next, prev]);
+
+  const active = open === null ? null : items[open];
+
   return (
     <section id="galerie" className="bg-mist px-6 py-24 lg:px-12 lg:py-36">
       <div className="mx-auto max-w-7xl">
@@ -38,21 +76,97 @@ export default function Gallery() {
             <Reveal
               key={i}
               delay={(i % 4) * 80}
-              className={`zoomable group relative overflow-hidden ${it.span}`}
+              className={`group relative ${it.span}`}
             >
-              <Photo
-                src={it.src}
-                alt={it.alt}
-                sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-              />
-              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-navy-900/70 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-              <span className="pointer-events-none absolute bottom-4 left-4 translate-y-2 text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-white opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
-                {it.caption}
-              </span>
+              <button
+                type="button"
+                onClick={() => setOpen(i)}
+                aria-label={`Zvětšit fotku: ${it.caption}`}
+                className="zoomable relative block h-full w-full cursor-zoom-in overflow-hidden"
+              >
+                <Photo
+                  src={it.src}
+                  alt={it.alt}
+                  sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                />
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-navy-900/70 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+                <span className="pointer-events-none absolute bottom-4 left-4 translate-y-2 text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-white opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
+                  {it.caption}
+                </span>
+              </button>
             </Reveal>
           ))}
         </div>
       </div>
+
+      {/* Lightbox */}
+      {active && (
+        <div
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-navy-900/95 p-4 backdrop-blur-sm sm:p-8"
+          onClick={close}
+          role="dialog"
+          aria-modal="true"
+          aria-label={active.caption}
+        >
+          <button
+            type="button"
+            onClick={close}
+            aria-label="Zavřít"
+            className="absolute right-4 top-4 flex h-11 w-11 items-center justify-center text-white/80 transition-colors hover:text-white sm:right-6 sm:top-6"
+          >
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden>
+              <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+            </svg>
+          </button>
+
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              prev();
+            }}
+            aria-label="Předchozí"
+            className="absolute left-2 top-1/2 flex h-12 w-12 -translate-y-1/2 items-center justify-center text-white/70 transition-colors hover:text-white sm:left-5"
+          >
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" aria-hidden>
+              <path d="M15 6l-6 6 6 6" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </button>
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              next();
+            }}
+            aria-label="Další"
+            className="absolute right-2 top-1/2 flex h-12 w-12 -translate-y-1/2 items-center justify-center text-white/70 transition-colors hover:text-white sm:right-5"
+          >
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" aria-hidden>
+              <path d="M9 6l6 6-6 6" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </button>
+
+          <figure
+            className="relative flex max-h-full w-full max-w-5xl flex-col items-center"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="relative h-[78vh] w-full">
+              <Image
+                src={active.src}
+                alt={active.alt}
+                fill
+                sizes="100vw"
+                placeholder={blurData[active.src] ? "blur" : undefined}
+                blurDataURL={blurData[active.src]}
+                className="object-contain"
+              />
+            </div>
+            <figcaption className="mt-4 text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-white/70">
+              {active.caption}
+            </figcaption>
+          </figure>
+        </div>
+      )}
     </section>
   );
 }
