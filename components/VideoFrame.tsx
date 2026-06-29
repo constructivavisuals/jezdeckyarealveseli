@@ -1,13 +1,24 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function VideoFrame() {
   const videoRef = useRef<HTMLVideoElement>(null);
+  // Vybereme zdroj až na klientu — menší soubor pro mobil, ať se nestahuje 1080p.
+  const [src, setSrc] = useState<string | null>(null);
+  const [reduceMotion, setReduceMotion] = useState(false);
+
+  useEffect(() => {
+    const mobile = window.matchMedia("(max-width: 767px)").matches;
+    setSrc(mobile ? "/video/areal-720p.mp4" : "/video/areal-1080p.mp4");
+    setReduceMotion(
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    );
+  }, []);
 
   useEffect(() => {
     const v = videoRef.current;
-    if (!v) return;
+    if (!v || !src || reduceMotion) return;
 
     // Přehrávej jen když je video v záběru — šetří CPU, data i baterii.
     const observer = new IntersectionObserver(
@@ -23,7 +34,7 @@ export default function VideoFrame() {
 
     observer.observe(v);
     return () => observer.disconnect();
-  }, []);
+  }, [src, reduceMotion]);
 
   return (
     <div className="relative aspect-video w-full overflow-hidden rounded-2xl bg-navy-900 ring-1 ring-navy-100">
@@ -35,8 +46,8 @@ export default function VideoFrame() {
         loop
         playsInline
         preload="none"
+        src={src ?? undefined}
       >
-        <source src="/video/areal-1080p.mp4" type="video/mp4" />
         Váš prohlížeč nepodporuje přehrávání videa.
       </video>
 
