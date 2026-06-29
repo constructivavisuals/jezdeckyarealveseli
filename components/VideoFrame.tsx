@@ -1,24 +1,30 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useSyncExternalStore } from "react";
+
+function useMediaQuery(query: string, serverDefault = false) {
+  return useSyncExternalStore(
+    (onChange) => {
+      const mql = window.matchMedia(query);
+      mql.addEventListener("change", onChange);
+      return () => mql.removeEventListener("change", onChange);
+    },
+    () => window.matchMedia(query).matches,
+    () => serverDefault
+  );
+}
 
 export default function VideoFrame() {
   const videoRef = useRef<HTMLVideoElement>(null);
-  // Vybereme zdroj až na klientu — menší soubor pro mobil, ať se nestahuje 1080p.
-  const [src, setSrc] = useState<string | null>(null);
-  const [reduceMotion, setReduceMotion] = useState(false);
+  const isMobile = useMediaQuery("(max-width: 767px)");
+  const reduceMotion = useMediaQuery("(prefers-reduced-motion: reduce)");
 
-  useEffect(() => {
-    const mobile = window.matchMedia("(max-width: 767px)").matches;
-    setSrc(mobile ? "/video/areal-720p.mp4" : "/video/areal-1080p.mp4");
-    setReduceMotion(
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches
-    );
-  }, []);
+  // Menší soubor pro mobil, ať telefony nestahují 1080p.
+  const src = isMobile ? "/video/areal-720p.mp4" : "/video/areal-1080p.mp4";
 
   useEffect(() => {
     const v = videoRef.current;
-    if (!v || !src || reduceMotion) return;
+    if (!v || reduceMotion) return;
 
     // Přehrávej jen když je video v záběru — šetří CPU, data i baterii.
     const observer = new IntersectionObserver(
@@ -46,7 +52,7 @@ export default function VideoFrame() {
         loop
         playsInline
         preload="none"
-        src={src ?? undefined}
+        src={src}
       >
         Váš prohlížeč nepodporuje přehrávání videa.
       </video>
