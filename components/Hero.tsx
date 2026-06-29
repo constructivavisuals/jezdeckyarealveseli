@@ -31,7 +31,7 @@ export default function Hero() {
           <p className="mb-7 text-sm font-semibold uppercase tracking-[0.3em] text-white sm:text-base">
             Jezdecký areál k pronájmu
           </p>
-          <h1 className="display mx-auto max-w-5xl text-[3.4rem] text-white sm:text-7xl lg:text-[6.5rem]">
+          <h1 className="display mx-auto max-w-5xl text-[3.4rem] text-white sm:text-6xl lg:text-[6.5rem]">
             Vlastní jezdecký
             <br />
             areál na dosah ráje
