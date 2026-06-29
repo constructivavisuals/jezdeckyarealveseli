@@ -6,8 +6,7 @@ const items = [
   { src: "/images/arial-1.jpg", alt: "Jízdárna a výběhy", caption: "Jízdárna a výběhy", span: "" },
   { src: "/images/arena.jpg", alt: "Jízdárna a stáje", caption: "Stáje a jízdárna", span: "" },
   { src: "/images/arial-2.jpg", alt: "Areál v podvečerním světle", caption: "Podvečerní světlo", span: "lg:col-span-2" },
-  { src: "/images/house-arena.jpg", alt: "Dům a jízdárna", caption: "Dům a zázemí", span: "lg:col-span-2" },
-  { src: "/images/lake.jpg", alt: "Okolí areálu", caption: "Okolní krajina", span: "lg:col-span-2" },
+  { src: "/images/house-arena.jpg", alt: "Dům a jízdárna", caption: "Dům a zázemí", span: "" },
 ];
 
 export default function Gallery() {
@@ -34,7 +33,7 @@ export default function Gallery() {
           </div>
         </Reveal>
 
-        <div className="mt-14 grid auto-rows-[210px] grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-14 grid auto-rows-[210px] grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {items.map((it, i) => (
             <Reveal
               key={i}
