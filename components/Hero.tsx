@@ -21,9 +21,6 @@ export default function Hero() {
       <div className="absolute inset-0 bg-gradient-to-b from-navy-900/70 via-navy-900/35 to-navy-900/90" />
       <div className="absolute inset-0 bg-navy-900/15" />
 
-      {/* Inset rámeček */}
-      <div className="pointer-events-none absolute inset-3 border border-white/15 sm:inset-5" />
-
       {/* Obsah */}
       <div className="relative z-10 mx-auto flex h-full max-w-7xl flex-col px-6 lg:px-12">
         {/* Horní meta lišta */}
