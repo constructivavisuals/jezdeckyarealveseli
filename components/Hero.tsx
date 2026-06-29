@@ -27,24 +27,21 @@ export default function Hero() {
       {/* Obsah */}
       <div className="relative z-10 mx-auto flex h-full max-w-7xl flex-col px-6 lg:px-12">
         {/* Horní meta lišta */}
-        <div className="flex items-center justify-between pt-28 text-[0.68rem] uppercase tracking-[0.24em] text-white/70 lg:pt-32">
-          <span>Vysoké Veselí — Český ráj</span>
+        <div className="flex items-center justify-end pt-28 text-[0.68rem] uppercase tracking-[0.24em] text-white/70 lg:pt-32">
           <span className="hidden sm:block">Pronájem celého areálu</span>
         </div>
 
-        {/* Hlavní nadpis – spodní třetina */}
-        <div className="mt-auto pb-10 lg:pb-16">
-          <p className="eyebrow mb-7 text-white/80">Jezdecký areál k pronájmu</p>
-          <h1 className="display max-w-5xl text-[3.4rem] text-white sm:text-7xl lg:text-[6.5rem]">
+        {/* Hlavní nadpis – vertikálně na střed */}
+        <div className="my-auto text-center">
+          <p className="mb-7 text-sm font-semibold uppercase tracking-[0.3em] text-white sm:text-base">
+            Jezdecký areál k pronájmu
+          </p>
+          <h1 className="display mx-auto max-w-5xl text-[3.4rem] text-white sm:text-7xl lg:text-[6.5rem]">
             Vlastní jezdecký
             <br />
             areál na dosah ráje
           </h1>
-          <p className="mt-8 max-w-xl text-lg leading-relaxed text-white/85">
-            Kompletní zázemí pro koně i jezdce ve Vysokém Veselí — 14 boxů,
-            jízdárna, výběhy a ubytování. K pronájmu jako celek.
-          </p>
-          <div className="mt-10 flex flex-col gap-4 sm:flex-row">
+          <div className="mt-12 flex flex-col gap-4 sm:flex-row sm:justify-center">
             <a
               href="#kontakt"
               className="rounded-none bg-white px-9 py-4 text-xs font-semibold uppercase tracking-[0.16em] text-navy-900 transition-colors duration-300 hover:bg-navy-100"
