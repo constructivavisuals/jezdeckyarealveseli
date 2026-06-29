@@ -1,17 +1,15 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import Image from "next/image";
 import Photo from "./Photo";
 import Reveal from "./Reveal";
-import { blurData } from "@/lib/blurData";
 
 const items = [
-  { src: "/images/overview.jpg", alt: "Areál z výšky", caption: "Celkový pohled", span: "lg:col-span-2 lg:row-span-2" },
-  { src: "/images/arial-1.jpg", alt: "Jízdárna a výběhy", caption: "Jízdárna a výběhy", span: "" },
-  { src: "/images/arena.jpg", alt: "Jízdárna a stáje", caption: "Stáje a jízdárna", span: "" },
-  { src: "/images/arial-2.jpg", alt: "Areál v podvečerním světle", caption: "Podvečerní světlo", span: "lg:col-span-2" },
-  { src: "/images/house-arena.jpg", alt: "Dům a jízdárna", caption: "Dům a zázemí", span: "" },
+  { src: "/images/overview.jpg", preview: "/images/lightbox/overview.jpg", alt: "Areál z výšky", caption: "Celkový pohled", span: "lg:col-span-2 lg:row-span-2" },
+  { src: "/images/arial-1.jpg", preview: "/images/lightbox/arial-1.jpg", alt: "Jízdárna a výběhy", caption: "Jízdárna a výběhy", span: "" },
+  { src: "/images/arena.jpg", preview: "/images/lightbox/arena.jpg", alt: "Jízdárna a stáje", caption: "Stáje a jízdárna", span: "" },
+  { src: "/images/arial-2.jpg", preview: "/images/lightbox/arial-2.jpg", alt: "Areál v podvečerním světle", caption: "Podvečerní světlo", span: "lg:col-span-2" },
+  { src: "/images/house-arena.jpg", preview: "/images/lightbox/house-arena.jpg", alt: "Dům a jízdárna", caption: "Dům a zázemí", span: "" },
 ];
 
 export default function Gallery() {
@@ -29,6 +27,11 @@ export default function Gallery() {
 
   useEffect(() => {
     if (open === null) return;
+    // Přednačti všechny zmenšené náhledy, ať je proklikávání okamžité.
+    items.forEach((it) => {
+      const img = new window.Image();
+      img.src = it.preview;
+    });
     // Zámek scrollu na pozadí.
     const prevOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
@@ -150,17 +153,15 @@ export default function Gallery() {
             className="relative flex max-h-full w-full max-w-5xl flex-col items-center"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="relative h-[78vh] w-full">
-              <Image
-                src={active.src}
-                alt={active.alt}
-                fill
-                sizes="100vw"
-                placeholder={blurData[active.src] ? "blur" : undefined}
-                blurDataURL={blurData[active.src]}
-                className="object-contain"
-              />
-            </div>
+            {/* Plný <img> přímo na zmenšený náhled — bez serverové optimalizace, rychlé proklikávání. */}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              key={active.preview}
+              src={active.preview}
+              alt={active.alt}
+              decoding="async"
+              className="max-h-[78vh] w-auto max-w-full object-contain"
+            />
             <figcaption className="mt-4 text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-white/70">
               {active.caption}
             </figcaption>
