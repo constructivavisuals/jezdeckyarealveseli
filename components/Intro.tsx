@@ -36,14 +36,38 @@ export default function Intro() {
           </h2>
         </Reveal>
 
-        <div className="mt-14 grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-16">
-          <Reveal className="flex flex-col justify-end lg:col-span-5">
-            <p className="text-lg leading-relaxed text-ink/70">
+        <div className="mt-14 grid grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-16">
+          <Reveal className="flex flex-col gap-8 lg:col-span-5">
+            <p className="text-xl leading-relaxed text-ink/75">
               Jezdecký areál ve Vysokém Veselí nabízí kompletní podmínky pro
-              ustájení koní i pohodlí jejich majitelů. Stáje, jízdárna, výběhy,
-              seník i samostatné ubytování — vše na jednom místě a připravené k
-              tomu, aby si sem nový provozovatel mohl rovnou nastěhovat koně.
+              ustájení koní i pohodlí jejich majitelů — vše na jednom místě
+              a&nbsp;připravené k převzetí.
             </p>
+            <ul className="border-t border-navy-100">
+              {[
+                "Stáje a stájové boxy",
+                "Venkovní jízdárna a výběhy",
+                "Seník, slamník a zázemí",
+                "Samostatné ubytování na místě",
+              ].map((item) => (
+                <li
+                  key={item}
+                  className="flex items-center gap-4 border-b border-navy-100 py-3.5 text-[0.95rem] font-medium text-navy-900"
+                >
+                  <span className="h-1.5 w-1.5 shrink-0 bg-navy-400" />
+                  {item}
+                </li>
+              ))}
+            </ul>
+            <a
+              href="#vybaveni"
+              className="group inline-flex items-center gap-2 text-[0.8rem] font-semibold uppercase tracking-[0.16em] text-navy-900"
+            >
+              Prohlédnout vybavení
+              <span className="transition-transform duration-300 group-hover:translate-x-1">
+                →
+              </span>
+            </a>
           </Reveal>
           <Reveal delay={120} className="lg:col-span-7">
             <VideoFrame />

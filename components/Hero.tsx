@@ -24,9 +24,7 @@ export default function Hero() {
       {/* Obsah */}
       <div className="relative z-10 mx-auto flex h-full max-w-7xl flex-col px-6 lg:px-12">
         {/* Horní meta lišta */}
-        <div className="flex items-center justify-end pt-28 text-[0.68rem] uppercase tracking-[0.24em] text-white/70 lg:pt-32">
-          <span className="hidden sm:block">Pronájem celého areálu</span>
-        </div>
+        <div className="pt-28 lg:pt-32" />
 
         {/* Hlavní nadpis – vertikálně na střed */}
         <div className="my-auto text-center">
