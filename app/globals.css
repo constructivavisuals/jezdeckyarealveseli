@@ -3,38 +3,37 @@
 @theme {
   /* Bílá / studené off-white (alias „cream" zachován kvůli třídám) */
   --color-cream: #ffffff;
-  --color-cream-dark: #f2f6fc;
-  --color-mist: #f2f6fc;
-  --color-mist-dark: #e6edf7;
+  --color-cream-dark: #f3f6fb;
+  --color-mist: #f3f6fb;
+  --color-mist-dark: #e7edf6;
 
   /* Námořnická modrá — primární barva */
   --color-navy-50: #eef2f9;
-  --color-navy-100: #d6def0;
-  --color-navy-200: #adbfdd;
-  --color-navy-300: #7f97c1;
-  --color-navy-400: #3a517a;
-  --color-navy-500: #25395e;
-  --color-navy-600: #1b2c4b;
-  --color-navy-700: #142039;
+  --color-navy-100: #dce4f1;
+  --color-navy-200: #b3c2dc;
+  --color-navy-300: #8298bd;
+  --color-navy-400: #51678f;
+  --color-navy-500: #2f4468;
+  --color-navy-600: #1d3052;
+  --color-navy-700: #16243d;
   --color-navy-800: #0e1a30;
-  --color-navy-900: #091221;
+  --color-navy-900: #081120;
 
-  /* Jemný zlatý akcent — používaný decentně */
-  --color-gold-300: #ddc89c;
-  --color-gold-400: #ccac6f;
-  --color-gold-500: #b8924a;
-  --color-gold-600: #9a7838;
+  --color-ink: #131c2b;
 
-  --color-ink: #1d2738;
-
-  /* Fonty */
-  --font-serif: var(--font-cormorant), ui-serif, Georgia, serif;
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  /* Jediný font — neo-groteska ve stylu Univers */
+  --font-sans: var(--font-archivo), "Helvetica Neue", Arial, sans-serif;
+  --font-serif: var(--font-archivo), "Helvetica Neue", Arial, sans-serif;
 }
 
 :root {
   --background: #ffffff;
-  --foreground: #1d2738;
+  --foreground: #131c2b;
+}
+
+* {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
 html {
@@ -45,40 +44,71 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans);
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
-  letter-spacing: -0.006em;
+  font-feature-settings: "kern" 1, "ss01" 1;
 }
 
 ::selection {
-  background: var(--color-navy-800);
+  background: var(--color-navy-900);
   color: #fff;
 }
 
-/* Serif nadpisy — jemné optické vyladění a ligatury */
+/* ---------- Typografie ---------- */
+.display {
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 0.98;
+}
+.display-light {
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.02;
+}
 .font-serif {
-  font-feature-settings: "liga" 1, "calt" 1, "dlig" 1;
-  letter-spacing: -0.012em;
+  letter-spacing: -0.02em;
 }
 
-/* Drobný akcentní label */
+/* Drobný akcentní label (uppercase, prostrkaný) */
 .eyebrow {
   display: inline-flex;
   align-items: center;
+  gap: 0.85rem;
   font-family: var(--font-sans);
   text-transform: uppercase;
-  letter-spacing: 0.32em;
+  letter-spacing: 0.22em;
   font-size: 0.7rem;
   font-weight: 600;
   color: var(--color-navy-400);
 }
+.eyebrow::before {
+  content: "";
+  width: 1.75rem;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.7;
+}
+.eyebrow--center {
+  justify-content: center;
+}
 
-/* Reveal on scroll */
+/* Index čísel sekcí */
+.index {
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+}
+
+/* Hairline pravítka */
+.rule {
+  height: 1px;
+  background: color-mix(in srgb, currentColor 16%, transparent);
+}
+
+/* ---------- Reveal on scroll ---------- */
 .reveal {
   opacity: 0;
-  transform: translateY(28px);
-  transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
-    transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateY(26px);
+  transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 1s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: opacity, transform;
 }
 .reveal.is-visible {
@@ -97,7 +127,7 @@ body {
   }
 }
 
-/* Jemný Ken Burns efekt na hero */
+/* ---------- Ken Burns na hero ---------- */
 @keyframes kenburns {
   0% {
     transform: scale(1.05);
@@ -107,5 +137,15 @@ body {
   }
 }
 .kenburns {
-  animation: kenburns 22s ease-out forwards;
+  animation: kenburns 24s ease-out forwards;
+}
+
+/* Jemné posouvání obrázku v galerii */
+@media (hover: hover) {
+  .zoomable img {
+    transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .zoomable:hover img {
+    transform: scale(1.05);
+  }
 }

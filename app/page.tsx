@@ -22,6 +22,7 @@ export default function Home() {
 
         <SplitSection
           id="ustajeni"
+          index="04"
           eyebrow="Ustájení"
           title="14 boxů připravených pro vaše koně"
           imageSrc="/images/arena.jpg"
@@ -40,6 +41,7 @@ export default function Home() {
 
         <SplitSection
           id="ubytovani"
+          index="05"
           eyebrow="Ubytování"
           title="Bydlení přímo v areálu"
           imageSrc="/images/house.jpg"

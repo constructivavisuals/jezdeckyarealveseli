@@ -4,9 +4,7 @@ const features = [
   {
     title: "Ustájení — 14 boxů",
     text: "12 vnitřních a 2 venkovní boxy s veškerým zázemím pro každodenní péči o koně.",
-    icon: (
-      <path d="M3 21V8l9-5 9 5v13M9 21v-6h6v6M7 11h.01M17 11h.01" />
-    ),
+    icon: <path d="M3 21V8l9-5 9 5v13M9 21v-6h6v6M7 11h.01M17 11h.01" />,
   },
   {
     title: "Jízdárna",
@@ -31,44 +29,61 @@ const features = [
   {
     title: "Manipulační technika",
     text: "Možnost pronájmu manipulační techniky pro provoz a údržbu areálu.",
-    icon: <path d="M3 17h13v-5H8L3 17zM16 17h5v-3l-3-1M6 20a2 2 0 100-4 2 2 0 000 4zM18 20a2 2 0 100-4 2 2 0 000 4z" />,
+    icon: (
+      <path d="M3 17h13v-5H8L3 17zM16 17h5v-3l-3-1M6 20a2 2 0 100-4 2 2 0 000 4zM18 20a2 2 0 100-4 2 2 0 000 4z" />
+    ),
   },
 ];
 
 export default function Features() {
   return (
-    <section id="vybaveni" className="bg-cream-dark px-6 py-24 lg:py-32">
+    <section id="vybaveni" className="bg-mist px-6 py-24 lg:px-12 lg:py-36">
       <div className="mx-auto max-w-7xl">
-        <Reveal className="mx-auto max-w-2xl text-center">
-          <p className="eyebrow mb-5">Vybavení</p>
-          <h2 className="font-serif text-3xl font-medium leading-tight text-navy-800 sm:text-4xl lg:text-5xl">
+        <Reveal>
+          <div className="flex items-center gap-4 text-navy-400">
+            <span className="index text-sm">02</span>
+            <span className="h-px w-10 bg-navy-200" />
+            <span className="text-[0.7rem] font-semibold uppercase tracking-[0.22em]">
+              Vybavení
+            </span>
+          </div>
+        </Reveal>
+        <Reveal delay={80}>
+          <h2 className="mt-8 max-w-3xl display-light text-4xl text-navy-900 sm:text-5xl">
             Vše, co kompletní jezdecký provoz potřebuje
           </h2>
         </Reveal>
 
-        <div className="mt-16 grid grid-cols-1 gap-px overflow-hidden rounded-2xl border border-navy-100 bg-navy-100 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-16 grid grid-cols-1 border-l border-t border-navy-100 sm:grid-cols-2 lg:grid-cols-3">
           {features.map((f, i) => (
             <Reveal
               key={f.title}
-              delay={(i % 3) * 100}
-              className="group bg-cream p-8 transition-colors duration-300 hover:bg-navy-50 lg:p-10"
+              delay={(i % 3) * 90}
+              className="group relative border-b border-r border-navy-100 bg-mist p-8 transition-colors duration-300 hover:bg-white lg:p-10"
             >
-              <div className="mb-5 text-navy-400">
-                <svg
-                  width="32"
-                  height="32"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.3"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  {f.icon}
-                </svg>
+              <div className="flex items-start justify-between">
+                <span className="index text-sm text-navy-300">0{i + 1}</span>
+                <span className="text-navy-400 transition-transform duration-300 group-hover:-translate-y-0.5">
+                  <svg
+                    width="30"
+                    height="30"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    {f.icon}
+                  </svg>
+                </span>
               </div>
-              <h3 className="font-serif text-2xl text-navy-800">{f.title}</h3>
-              <p className="mt-3 text-base leading-relaxed text-ink/70">{f.text}</p>
+              <h3 className="mt-12 text-xl font-bold tracking-tight text-navy-900">
+                {f.title}
+              </h3>
+              <p className="mt-3 text-[0.95rem] leading-relaxed text-ink/65">
+                {f.text}
+              </p>
             </Reveal>
           ))}
         </div>

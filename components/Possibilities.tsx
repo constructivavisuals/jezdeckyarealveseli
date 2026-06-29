@@ -17,25 +17,35 @@ const items = [
 
 export default function Possibilities() {
   return (
-    <section className="bg-cream px-6 py-24 lg:py-32">
+    <section className="bg-navy-900 px-6 py-24 text-white lg:px-12 lg:py-36">
       <div className="mx-auto max-w-7xl">
-        <Reveal className="mx-auto max-w-2xl text-center">
-          <p className="eyebrow mb-5">Možnosti</p>
-          <h2 className="font-serif text-3xl font-medium leading-tight text-navy-800 sm:text-4xl lg:text-5xl">
+        <Reveal>
+          <div className="flex items-center gap-4 text-navy-300">
+            <span className="index text-sm">07</span>
+            <span className="h-px w-10 bg-white/25" />
+            <span className="text-[0.7rem] font-semibold uppercase tracking-[0.22em]">
+              Možnosti
+            </span>
+          </div>
+          <h2 className="mt-7 max-w-3xl display-light text-4xl text-white sm:text-5xl lg:text-6xl">
             Prostor, který roste s vašimi plány
           </h2>
         </Reveal>
 
-        <div className="mt-16 grid grid-cols-1 gap-8 md:grid-cols-3">
+        <div className="mt-16 border-t border-white/15">
           {items.map((it, i) => (
-            <Reveal
-              key={it.title}
-              delay={i * 120}
-              className="rounded-2xl border border-navy-100 bg-cream-dark/40 p-8 lg:p-10"
-            >
-              <div className="font-serif text-5xl text-navy-300">0{i + 1}</div>
-              <h3 className="mt-5 font-serif text-2xl text-navy-800">{it.title}</h3>
-              <p className="mt-3 text-base leading-relaxed text-ink/70">{it.text}</p>
+            <Reveal key={it.title} delay={i * 100}>
+              <div className="group grid grid-cols-1 items-start gap-4 border-b border-white/15 py-9 transition-colors duration-300 hover:bg-white/[0.03] sm:grid-cols-12 sm:gap-8 sm:py-12">
+                <div className="index text-2xl text-navy-300 sm:col-span-2 sm:text-3xl">
+                  0{i + 1}
+                </div>
+                <h3 className="text-2xl font-bold tracking-tight text-white sm:col-span-4 sm:text-3xl">
+                  {it.title}
+                </h3>
+                <p className="text-lg leading-relaxed text-white/70 sm:col-span-6">
+                  {it.text}
+                </p>
+              </div>
             </Reveal>
           ))}
         </div>

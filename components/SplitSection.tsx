@@ -3,6 +3,7 @@ import Reveal from "./Reveal";
 
 type SplitSectionProps = {
   id?: string;
+  index?: string;
   eyebrow: string;
   title: React.ReactNode;
   children: React.ReactNode;
@@ -16,6 +17,7 @@ type SplitSectionProps = {
 
 export default function SplitSection({
   id,
+  index,
   eyebrow,
   title,
   children,
@@ -26,14 +28,11 @@ export default function SplitSection({
   dark = false,
 }: SplitSectionProps) {
   return (
-    <section
-      id={id}
-      className={dark ? "bg-navy-800 text-cream" : "bg-cream text-ink"}
-    >
-      <div className="mx-auto grid max-w-7xl grid-cols-1 items-stretch lg:grid-cols-2">
+    <section id={id} className={dark ? "bg-navy-900 text-white" : "bg-white text-ink"}>
+      <div className="mx-auto grid max-w-[1600px] grid-cols-1 items-stretch lg:grid-cols-2">
         {/* Fotka */}
         <div
-          className={`relative min-h-[340px] lg:min-h-[600px] ${
+          className={`zoomable relative min-h-[360px] overflow-hidden lg:min-h-[680px] ${
             reverse ? "lg:order-2" : "lg:order-1"
           }`}
         >
@@ -42,26 +41,32 @@ export default function SplitSection({
 
         {/* Text */}
         <div
-          className={`flex items-center px-6 py-16 sm:px-12 lg:px-16 lg:py-28 ${
+          className={`flex items-center px-6 py-16 sm:px-12 lg:px-20 lg:py-32 ${
             reverse ? "lg:order-1" : "lg:order-2"
           }`}
         >
           <Reveal className="max-w-xl">
-            <p
-              className={`eyebrow mb-5 ${dark ? "text-navy-200" : "text-navy-400"}`}
+            <div
+              className={`flex items-center gap-4 ${dark ? "text-navy-300" : "text-navy-400"}`}
             >
-              {eyebrow}
-            </p>
+              {index && <span className="index text-sm">{index}</span>}
+              <span
+                className={`h-px w-10 ${dark ? "bg-white/25" : "bg-navy-200"}`}
+              />
+              <span className="text-[0.7rem] font-semibold uppercase tracking-[0.22em]">
+                {eyebrow}
+              </span>
+            </div>
             <h2
-              className={`font-serif text-3xl font-medium leading-tight sm:text-4xl lg:text-5xl ${
-                dark ? "text-cream" : "text-navy-800"
+              className={`mt-7 display-light text-4xl sm:text-5xl lg:text-[3.4rem] ${
+                dark ? "text-white" : "text-navy-900"
               }`}
             >
               {title}
             </h2>
             <div
-              className={`mt-6 space-y-4 text-base leading-relaxed ${
-                dark ? "text-cream/85" : "text-ink/75"
+              className={`mt-7 space-y-5 text-lg leading-relaxed ${
+                dark ? "text-white/75" : "text-ink/70"
               }`}
             >
               {children}

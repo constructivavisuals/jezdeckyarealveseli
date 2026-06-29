@@ -1,72 +1,80 @@
 import Photo from "./Photo";
 
+const facts = [
+  { k: "14", v: "ustajovacích boxů" },
+  { k: "1", v: "krytá jízdárna" },
+  { k: "2+1", v: "byty a dům" },
+  { k: "20 min", v: "do Českého ráje" },
+];
+
 export default function Hero() {
   return (
-    <section id="hero" className="relative h-svh min-h-[640px] w-full overflow-hidden">
-      {/* Fotka / placeholder na pozadí */}
+    <section id="hero" className="relative h-svh min-h-[680px] w-full overflow-hidden bg-navy-900">
+      {/* Pozadí */}
       <div className="absolute inset-0">
         <div className="kenburns h-full w-full">
           <Photo src="/images/hero.jpg" alt="Jezdecký areál Vysoké Veselí z výšky" priority />
         </div>
       </div>
 
-      {/* Ztmavení pro čitelnost textu */}
-      <div className="absolute inset-0 bg-gradient-to-b from-navy-900/70 via-navy-900/35 to-navy-900/80" />
-      <div className="absolute inset-0 bg-navy-900/10" />
+      {/* Ztmavení */}
+      <div className="absolute inset-0 bg-gradient-to-b from-navy-900/70 via-navy-900/35 to-navy-900/90" />
+      <div className="absolute inset-0 bg-navy-900/15" />
+
+      {/* Inset rámeček */}
+      <div className="pointer-events-none absolute inset-3 border border-white/15 sm:inset-5" />
 
       {/* Obsah */}
-      <div className="relative z-10 flex h-full flex-col items-center justify-center px-6 text-center">
-        <p className="eyebrow mb-6 text-navy-200">Jezdecký areál k pronájmu</p>
-        <h1 className="max-w-4xl font-serif text-5xl font-medium leading-[1.04] tracking-tight text-white sm:text-6xl lg:text-7xl">
-          Vlastní jezdecký areál
-          <span className="block italic font-normal text-white/95">na dosah Českého ráje</span>
-        </h1>
-        <p className="mt-7 max-w-xl text-base leading-relaxed text-cream/85 sm:text-lg">
-          Kompletní zázemí pro koně i jezdce ve Vysokém Veselí — 14 boxů, jízdárna,
-          výběhy a ubytování. K pronájmu jako celek.
-        </p>
-        <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row">
-          <a
-            href="#kontakt"
-            className="rounded-full bg-white px-8 py-3.5 text-sm font-medium uppercase tracking-wider text-navy-900 shadow-lg shadow-navy-900/25 transition-all duration-300 hover:bg-white/90"
-          >
-            Nezávazně poptat
-          </a>
-          <a
-            href="#o-arealu"
-            className="rounded-full border border-white/50 px-8 py-3.5 text-sm font-medium uppercase tracking-wider text-white backdrop-blur-sm transition-colors duration-300 hover:bg-white hover:text-navy-900"
-          >
-            Prohlédnout areál
-          </a>
+      <div className="relative z-10 mx-auto flex h-full max-w-7xl flex-col px-6 lg:px-12">
+        {/* Horní meta lišta */}
+        <div className="flex items-center justify-between pt-28 text-[0.68rem] uppercase tracking-[0.24em] text-white/70 lg:pt-32">
+          <span>Vysoké Veselí — Český ráj</span>
+          <span className="hidden sm:block">Pronájem celého areálu</span>
+        </div>
+
+        {/* Hlavní nadpis – spodní třetina */}
+        <div className="mt-auto pb-10 lg:pb-16">
+          <p className="eyebrow mb-7 text-white/80">Jezdecký areál k pronájmu</p>
+          <h1 className="display max-w-5xl text-[3.4rem] text-white sm:text-7xl lg:text-[6.5rem]">
+            Vlastní jezdecký
+            <br />
+            areál na dosah ráje
+          </h1>
+          <p className="mt-8 max-w-xl text-lg leading-relaxed text-white/85">
+            Kompletní zázemí pro koně i jezdce ve Vysokém Veselí — 14 boxů,
+            jízdárna, výběhy a ubytování. K pronájmu jako celek.
+          </p>
+          <div className="mt-10 flex flex-col gap-4 sm:flex-row">
+            <a
+              href="#kontakt"
+              className="rounded-none bg-white px-9 py-4 text-xs font-semibold uppercase tracking-[0.16em] text-navy-900 transition-colors duration-300 hover:bg-navy-100"
+            >
+              Nezávazně poptat
+            </a>
+            <a
+              href="#o-arealu"
+              className="rounded-none border border-white/45 px-9 py-4 text-xs font-semibold uppercase tracking-[0.16em] text-white backdrop-blur-sm transition-colors duration-300 hover:bg-white hover:text-navy-900"
+            >
+              Prohlédnout areál
+            </a>
+          </div>
+        </div>
+
+        {/* Spodní stat strip */}
+        <div className="grid grid-cols-2 border-t border-white/15 py-6 sm:grid-cols-4">
+          {facts.map((f, i) => (
+            <div
+              key={f.v}
+              className={`px-1 py-2 sm:px-5 ${i !== 0 ? "sm:border-l sm:border-white/15" : ""}`}
+            >
+              <div className="display text-2xl text-white sm:text-3xl">{f.k}</div>
+              <div className="mt-1 text-[0.62rem] uppercase tracking-[0.18em] text-white/60">
+                {f.v}
+              </div>
+            </div>
+          ))}
         </div>
       </div>
-
-      {/* Scroll indikátor */}
-      <a
-        href="#o-arealu"
-        aria-label="Posunout dolů"
-        className="absolute bottom-8 left-1/2 z-10 -translate-x-1/2 text-cream/70 transition-colors hover:text-cream"
-      >
-        <svg width="24" height="38" viewBox="0 0 24 38" fill="none">
-          <rect
-            x="1"
-            y="1"
-            width="22"
-            height="36"
-            rx="11"
-            stroke="currentColor"
-            strokeWidth="1.2"
-          />
-          <circle cx="12" cy="11" r="2.5" fill="currentColor">
-            <animate
-              attributeName="cy"
-              values="11;20;11"
-              dur="1.8s"
-              repeatCount="indefinite"
-            />
-          </circle>
-        </svg>
-      </a>
     </section>
   );
 }

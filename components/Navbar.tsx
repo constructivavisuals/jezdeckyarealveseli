@@ -3,11 +3,10 @@
 import { useEffect, useState } from "react";
 
 const links = [
-  { href: "#o-arealu", label: "O areálu" },
+  { href: "#o-arealu", label: "Areál" },
   { href: "#vybaveni", label: "Vybavení" },
   { href: "#video", label: "Video" },
   { href: "#ustajeni", label: "Ustájení" },
-  { href: "#ubytovani", label: "Ubytování" },
   { href: "#poloha", label: "Poloha" },
   { href: "#galerie", label: "Galerie" },
 ];
@@ -27,32 +26,36 @@ export default function Navbar() {
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
         scrolled
-          ? "bg-cream/95 shadow-[0_1px_0_rgba(0,0,0,0.06)] backdrop-blur"
-          : "bg-transparent"
+          ? "border-b border-navy-100 bg-white/90 backdrop-blur-md"
+          : "border-b border-transparent bg-transparent"
       }`}
     >
-      <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-10">
+      <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-12">
         <a
           href="#hero"
-          className={`font-serif text-xl leading-tight tracking-wide transition-colors duration-500 ${
-            scrolled ? "text-navy-800" : "text-cream"
+          className={`text-sm font-bold uppercase leading-none tracking-[0.12em] transition-colors duration-500 ${
+            scrolled ? "text-navy-900" : "text-white"
           }`}
         >
-          Jezdecký areál
-          <span className="block text-[0.7rem] font-sans uppercase tracking-[0.3em] opacity-80">
-            Vysoké Veselí
+          Areál Vysoké Veselí
+          <span
+            className={`mt-1 block text-[0.6rem] font-medium tracking-[0.3em] ${
+              scrolled ? "text-navy-400" : "text-white/60"
+            }`}
+          >
+            Jezdecký areál
           </span>
         </a>
 
-        <div className="hidden items-center gap-8 lg:flex">
+        <div className="hidden items-center gap-9 lg:flex">
           {links.map((l) => (
             <a
               key={l.href}
               href={l.href}
-              className={`text-sm font-medium transition-colors duration-300 ${
+              className={`text-[0.72rem] font-medium uppercase tracking-[0.14em] transition-colors duration-300 ${
                 scrolled
-                  ? "text-navy-900 hover:text-navy-500"
-                  : "text-cream/90 hover:text-white"
+                  ? "text-navy-600 hover:text-navy-900"
+                  : "text-white/80 hover:text-white"
               }`}
             >
               {l.label}
@@ -60,10 +63,10 @@ export default function Navbar() {
           ))}
           <a
             href="#kontakt"
-            className={`rounded-full border px-5 py-2 text-sm font-medium uppercase tracking-wider transition-all duration-300 ${
+            className={`px-5 py-2.5 text-[0.72rem] font-semibold uppercase tracking-[0.14em] transition-all duration-300 ${
               scrolled
-                ? "border-navy-800 text-navy-800 hover:bg-navy-800 hover:text-cream"
-                : "border-cream/70 text-cream hover:bg-cream hover:text-navy-800"
+                ? "bg-navy-900 text-white hover:bg-navy-700"
+                : "border border-white/50 text-white hover:bg-white hover:text-navy-900"
             }`}
           >
             Poptat
@@ -74,23 +77,13 @@ export default function Navbar() {
           type="button"
           aria-label="Menu"
           onClick={() => setOpen((v) => !v)}
-          className={`lg:hidden ${scrolled ? "text-navy-800" : "text-cream"}`}
+          className={`lg:hidden ${scrolled ? "text-navy-900" : "text-white"}`}
         >
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
             {open ? (
-              <path
-                d="M6 6l12 12M18 6L6 18"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-              />
+              <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
             ) : (
-              <path
-                d="M4 7h16M4 12h16M4 17h16"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-              />
+              <path d="M3 7h18M3 12h18M3 17h18" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
             )}
           </svg>
         </button>
@@ -98,17 +91,17 @@ export default function Navbar() {
 
       {/* Mobilní menu */}
       <div
-        className={`overflow-hidden bg-navy-800 transition-[max-height] duration-500 lg:hidden ${
-          open ? "max-h-96" : "max-h-0"
+        className={`overflow-hidden bg-navy-900 transition-[max-height] duration-500 lg:hidden ${
+          open ? "max-h-[420px]" : "max-h-0"
         }`}
       >
-        <div className="flex flex-col gap-1 px-6 py-4">
+        <div className="flex flex-col px-6 py-4">
           {links.map((l) => (
             <a
               key={l.href}
               href={l.href}
               onClick={() => setOpen(false)}
-              className="py-2 text-cream/90 hover:text-navy-200"
+              className="border-b border-white/10 py-3.5 text-sm uppercase tracking-[0.14em] text-white/85 hover:text-white"
             >
               {l.label}
             </a>
@@ -116,7 +109,7 @@ export default function Navbar() {
           <a
             href="#kontakt"
             onClick={() => setOpen(false)}
-            className="mt-2 rounded-full border border-navy-300 px-5 py-2 text-center text-sm font-medium uppercase tracking-wider text-navy-200"
+            className="mt-4 bg-white px-5 py-3.5 text-center text-xs font-semibold uppercase tracking-[0.16em] text-navy-900"
           >
             Poptat areál
           </a>
