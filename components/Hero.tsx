@@ -11,14 +11,15 @@ export default function Hero() {
       </div>
 
       {/* Ztmavení pro čitelnost textu */}
-      <div className="absolute inset-0 bg-gradient-to-b from-navy-900/55 via-navy-900/30 to-navy-900/70" />
+      <div className="absolute inset-0 bg-gradient-to-b from-navy-900/70 via-navy-900/35 to-navy-900/80" />
+      <div className="absolute inset-0 bg-navy-900/10" />
 
       {/* Obsah */}
       <div className="relative z-10 flex h-full flex-col items-center justify-center px-6 text-center">
-        <p className="eyebrow mb-6 text-gold-300">Jezdecký areál k pronájmu</p>
-        <h1 className="max-w-4xl font-serif text-4xl font-medium leading-[1.05] text-cream sm:text-6xl lg:text-7xl">
+        <p className="eyebrow mb-6 text-navy-200">Jezdecký areál k pronájmu</p>
+        <h1 className="max-w-4xl font-serif text-5xl font-medium leading-[1.04] tracking-tight text-white sm:text-6xl lg:text-7xl">
           Vlastní jezdecký areál
-          <span className="block italic text-cream/95">na dosah Českého ráje</span>
+          <span className="block italic font-normal text-white/95">na dosah Českého ráje</span>
         </h1>
         <p className="mt-7 max-w-xl text-base leading-relaxed text-cream/85 sm:text-lg">
           Kompletní zázemí pro koně i jezdce ve Vysokém Veselí — 14 boxů, jízdárna,
@@ -27,13 +28,13 @@ export default function Hero() {
         <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row">
           <a
             href="#kontakt"
-            className="rounded-full bg-gold-500 px-8 py-3.5 text-sm font-medium uppercase tracking-wider text-navy-900 transition-colors duration-300 hover:bg-gold-400"
+            className="rounded-full bg-white px-8 py-3.5 text-sm font-medium uppercase tracking-wider text-navy-900 shadow-lg shadow-navy-900/25 transition-all duration-300 hover:bg-white/90"
           >
             Nezávazně poptat
           </a>
           <a
             href="#o-arealu"
-            className="rounded-full border border-cream/60 px-8 py-3.5 text-sm font-medium uppercase tracking-wider text-cream transition-colors duration-300 hover:bg-cream hover:text-forest-700"
+            className="rounded-full border border-white/50 px-8 py-3.5 text-sm font-medium uppercase tracking-wider text-white backdrop-blur-sm transition-colors duration-300 hover:bg-white hover:text-navy-900"
           >
             Prohlédnout areál
           </a>

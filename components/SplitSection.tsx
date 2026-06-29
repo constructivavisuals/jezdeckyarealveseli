@@ -28,7 +28,7 @@ export default function SplitSection({
   return (
     <section
       id={id}
-      className={dark ? "bg-forest-700 text-cream" : "bg-cream text-ink"}
+      className={dark ? "bg-navy-800 text-cream" : "bg-cream text-ink"}
     >
       <div className="mx-auto grid max-w-7xl grid-cols-1 items-stretch lg:grid-cols-2">
         {/* Fotka */}
@@ -48,13 +48,13 @@ export default function SplitSection({
         >
           <Reveal className="max-w-xl">
             <p
-              className={`eyebrow mb-5 ${dark ? "text-gold-300" : "text-gold-600"}`}
+              className={`eyebrow mb-5 ${dark ? "text-navy-200" : "text-navy-400"}`}
             >
               {eyebrow}
             </p>
             <h2
               className={`font-serif text-3xl font-medium leading-tight sm:text-4xl lg:text-5xl ${
-                dark ? "text-cream" : "text-forest-700"
+                dark ? "text-cream" : "text-navy-800"
               }`}
             >
               {title}

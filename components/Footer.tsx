@@ -11,10 +11,10 @@ export default function Footer() {
 
         <div className="flex items-center gap-6 text-sm">
           {/* TODO: doplň reálný odkaz na FB */}
-          <a href="#" className="transition-colors hover:text-gold-300">
+          <a href="#" className="transition-colors hover:text-navy-200">
             Facebook
           </a>
-          <a href="#kontakt" className="transition-colors hover:text-gold-300">
+          <a href="#kontakt" className="transition-colors hover:text-navy-200">
             Kontakt
           </a>
         </div>

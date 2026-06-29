@@ -13,7 +13,7 @@ export default function Intro() {
       <div className="mx-auto max-w-4xl text-center">
         <Reveal>
           <p className="eyebrow mb-6">O areálu</p>
-          <h2 className="font-serif text-3xl font-medium leading-tight text-forest-700 sm:text-4xl lg:text-5xl">
+          <h2 className="font-serif text-3xl font-medium leading-tight text-navy-800 sm:text-4xl lg:text-5xl">
             Funkční jezdecké zázemí připravené k převzetí jako celek
           </h2>
           <p className="mx-auto mt-7 max-w-2xl text-lg leading-relaxed text-ink/75">
@@ -25,10 +25,10 @@ export default function Intro() {
         </Reveal>
 
         <Reveal delay={150}>
-          <div className="mt-16 grid grid-cols-2 gap-8 border-t border-forest-200 pt-12 sm:grid-cols-4">
+          <div className="mt-16 grid grid-cols-2 gap-8 border-t border-navy-100 pt-12 sm:grid-cols-4">
             {stats.map((s) => (
               <div key={s.label}>
-                <div className="font-serif text-4xl text-gold-500 sm:text-5xl">
+                <div className="font-serif text-4xl text-navy-400 sm:text-5xl">
                   {s.value}
                 </div>
                 <div className="mt-2 text-xs uppercase tracking-[0.18em] text-ink/55">

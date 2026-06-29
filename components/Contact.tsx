@@ -34,14 +34,14 @@ export default function Contact() {
   };
 
   const inputClass =
-    "w-full rounded-lg border border-forest-200 bg-cream px-4 py-3 text-ink placeholder:text-ink/40 focus:border-forest-500 focus:outline-none focus:ring-1 focus:ring-forest-500";
+    "w-full rounded-lg border border-navy-100 bg-cream px-4 py-3 text-ink placeholder:text-ink/40 focus:border-navy-500 focus:outline-none focus:ring-1 focus:ring-navy-500";
 
   return (
-    <section id="kontakt" className="bg-forest-700 px-6 py-24 text-cream lg:py-32">
+    <section id="kontakt" className="bg-navy-800 px-6 py-24 text-cream lg:py-32">
       <div className="mx-auto grid max-w-6xl grid-cols-1 gap-14 lg:grid-cols-2 lg:gap-20">
         {/* Levá strana — text a kontakty */}
         <Reveal>
-          <p className="eyebrow mb-5 text-gold-300">Kontakt</p>
+          <p className="eyebrow mb-5 text-navy-200">Kontakt</p>
           <h2 className="font-serif text-3xl font-medium leading-tight sm:text-4xl lg:text-5xl">
             Máte zájem o pronájem areálu?
           </h2>
@@ -52,7 +52,7 @@ export default function Contact() {
 
           <div className="mt-10 space-y-5 text-cream/90">
             <div>
-              <div className="text-xs uppercase tracking-[0.2em] text-gold-300">
+              <div className="text-xs uppercase tracking-[0.2em] text-navy-200">
                 Kontaktní osoba
               </div>
               <div className="mt-1 font-serif text-xl">{CONTACT_PERSON}</div>
@@ -60,13 +60,13 @@ export default function Contact() {
             <div className="flex flex-col gap-2 sm:flex-row sm:gap-8">
               <a
                 href={`tel:${CONTACT_PHONE.replace(/\s/g, "")}`}
-                className="transition-colors hover:text-gold-300"
+                className="transition-colors hover:text-navy-200"
               >
                 {CONTACT_PHONE}
               </a>
               <a
                 href={`mailto:${CONTACT_EMAIL}`}
-                className="transition-colors hover:text-gold-300"
+                className="transition-colors hover:text-navy-200"
               >
                 {CONTACT_EMAIL}
               </a>
@@ -134,7 +134,7 @@ export default function Contact() {
             </div>
             <button
               type="submit"
-              className="w-full rounded-full bg-gold-500 px-8 py-3.5 text-sm font-medium uppercase tracking-wider text-navy-900 transition-colors duration-300 hover:bg-gold-400"
+              className="w-full rounded-full bg-white px-8 py-3.5 text-sm font-medium uppercase tracking-wider text-navy-900 transition-colors duration-300 hover:bg-white/90"
             >
               Odeslat poptávku
             </button>

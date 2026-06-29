@@ -35,7 +35,7 @@ export default function Navbar() {
         <a
           href="#hero"
           className={`font-serif text-xl leading-tight tracking-wide transition-colors duration-500 ${
-            scrolled ? "text-forest-700" : "text-cream"
+            scrolled ? "text-navy-800" : "text-cream"
           }`}
         >
           Jezdecký areál
@@ -49,8 +49,10 @@ export default function Navbar() {
             <a
               key={l.href}
               href={l.href}
-              className={`text-sm font-medium transition-colors duration-300 hover:text-gold-500 ${
-                scrolled ? "text-forest-800" : "text-cream/90"
+              className={`text-sm font-medium transition-colors duration-300 ${
+                scrolled
+                  ? "text-navy-900 hover:text-navy-500"
+                  : "text-cream/90 hover:text-white"
               }`}
             >
               {l.label}
@@ -60,8 +62,8 @@ export default function Navbar() {
             href="#kontakt"
             className={`rounded-full border px-5 py-2 text-sm font-medium uppercase tracking-wider transition-all duration-300 ${
               scrolled
-                ? "border-forest-700 text-forest-700 hover:bg-forest-700 hover:text-cream"
-                : "border-cream/70 text-cream hover:bg-cream hover:text-forest-700"
+                ? "border-navy-800 text-navy-800 hover:bg-navy-800 hover:text-cream"
+                : "border-cream/70 text-cream hover:bg-cream hover:text-navy-800"
             }`}
           >
             Poptat
@@ -72,7 +74,7 @@ export default function Navbar() {
           type="button"
           aria-label="Menu"
           onClick={() => setOpen((v) => !v)}
-          className={`lg:hidden ${scrolled ? "text-forest-700" : "text-cream"}`}
+          className={`lg:hidden ${scrolled ? "text-navy-800" : "text-cream"}`}
         >
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
             {open ? (
@@ -96,7 +98,7 @@ export default function Navbar() {
 
       {/* Mobilní menu */}
       <div
-        className={`overflow-hidden bg-forest-700 transition-[max-height] duration-500 lg:hidden ${
+        className={`overflow-hidden bg-navy-800 transition-[max-height] duration-500 lg:hidden ${
           open ? "max-h-96" : "max-h-0"
         }`}
       >
@@ -106,7 +108,7 @@ export default function Navbar() {
               key={l.href}
               href={l.href}
               onClick={() => setOpen(false)}
-              className="py-2 text-cream/90 hover:text-gold-300"
+              className="py-2 text-cream/90 hover:text-navy-200"
             >
               {l.label}
             </a>
@@ -114,7 +116,7 @@ export default function Navbar() {
           <a
             href="#kontakt"
             onClick={() => setOpen(false)}
-            className="mt-2 rounded-full border border-gold-400 px-5 py-2 text-center text-sm font-medium uppercase tracking-wider text-gold-300"
+            className="mt-2 rounded-full border border-navy-300 px-5 py-2 text-center text-sm font-medium uppercase tracking-wider text-navy-200"
           >
             Poptat areál
           </a>

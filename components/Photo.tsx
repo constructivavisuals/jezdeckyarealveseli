@@ -42,7 +42,7 @@ export default function Photo({
   // Placeholder — elegantní, dokud nedodáš fotky
   return (
     <div
-      className={`flex h-full w-full items-center justify-center bg-gradient-to-br from-forest-700 via-forest-600 to-navy-700 ${className}`}
+      className={`flex h-full w-full items-center justify-center bg-gradient-to-br from-navy-700 via-navy-800 to-navy-900 ${className}`}
     >
       <div className="flex flex-col items-center gap-3 px-6 text-center text-cream/70">
         <svg

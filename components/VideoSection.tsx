@@ -19,7 +19,7 @@ export default function VideoSection() {
       <div className="mx-auto max-w-5xl">
         <Reveal>
           <div className="text-center">
-            <p className="eyebrow mb-6 text-gold-300">Prohlídka z výšky</p>
+            <p className="eyebrow mb-6 text-navy-200">Prohlídka z výšky</p>
             <h2 className="font-serif text-3xl font-medium leading-tight text-cream sm:text-4xl lg:text-5xl">
               Celý areál na jeden pohled
             </h2>
@@ -53,7 +53,7 @@ export default function VideoSection() {
                 aria-label="Přehrát video areálu"
                 className="group absolute inset-0 flex items-center justify-center bg-navy-900/30 transition-colors duration-300 hover:bg-navy-900/15"
               >
-                <span className="flex h-20 w-20 items-center justify-center rounded-full bg-gold-500/95 text-navy-900 shadow-xl transition-transform duration-300 group-hover:scale-105">
+                <span className="flex h-20 w-20 items-center justify-center rounded-full bg-white/95 text-navy-900 shadow-xl transition-transform duration-300 group-hover:scale-105">
                   <svg width="28" height="32" viewBox="0 0 28 32" fill="currentColor" className="ml-1">
                     <path d="M0 2.5C0 0.96 1.66 0 3 0.77l22 12.73c1.33 0.77 1.33 2.69 0 3.46L3 31.23C1.66 32 0 31.04 0 29.5V2.5z" />
                   </svg>

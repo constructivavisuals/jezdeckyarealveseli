@@ -21,7 +21,7 @@ export default function Possibilities() {
       <div className="mx-auto max-w-7xl">
         <Reveal className="mx-auto max-w-2xl text-center">
           <p className="eyebrow mb-5">Možnosti</p>
-          <h2 className="font-serif text-3xl font-medium leading-tight text-forest-700 sm:text-4xl lg:text-5xl">
+          <h2 className="font-serif text-3xl font-medium leading-tight text-navy-800 sm:text-4xl lg:text-5xl">
             Prostor, který roste s vašimi plány
           </h2>
         </Reveal>
@@ -31,10 +31,10 @@ export default function Possibilities() {
             <Reveal
               key={it.title}
               delay={i * 120}
-              className="rounded-2xl border border-forest-200 bg-cream-dark/40 p-8 lg:p-10"
+              className="rounded-2xl border border-navy-100 bg-cream-dark/40 p-8 lg:p-10"
             >
-              <div className="font-serif text-5xl text-gold-300">0{i + 1}</div>
-              <h3 className="mt-5 font-serif text-2xl text-forest-700">{it.title}</h3>
+              <div className="font-serif text-5xl text-navy-300">0{i + 1}</div>
+              <h3 className="mt-5 font-serif text-2xl text-navy-800">{it.title}</h3>
               <p className="mt-3 text-base leading-relaxed text-ink/70">{it.text}</p>
             </Reveal>
           ))}

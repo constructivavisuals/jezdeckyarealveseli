@@ -12,7 +12,7 @@ export default function Location() {
     <section id="poloha" className="bg-navy-700 px-6 py-24 text-cream lg:py-32">
       <div className="mx-auto grid max-w-7xl grid-cols-1 gap-14 lg:grid-cols-2 lg:items-center">
         <Reveal>
-          <p className="eyebrow mb-5 text-gold-300">Poloha</p>
+          <p className="eyebrow mb-5 text-navy-200">Poloha</p>
           <h2 className="font-serif text-3xl font-medium leading-tight text-cream sm:text-4xl lg:text-5xl">
             Na dosah Českého ráje
           </h2>
@@ -25,7 +25,7 @@ export default function Location() {
             {points.map((p) => (
               <li key={p} className="flex gap-3 text-cream/85">
                 <svg
-                  className="mt-1 shrink-0 text-gold-400"
+                  className="mt-1 shrink-0 text-navy-300"
                   width="18"
                   height="18"
                   viewBox="0 0 24 24"

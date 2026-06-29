@@ -16,7 +16,7 @@ export default function Gallery() {
       <div className="mx-auto max-w-7xl">
         <Reveal className="mx-auto max-w-2xl text-center">
           <p className="eyebrow mb-5">Galerie</p>
-          <h2 className="font-serif text-3xl font-medium leading-tight text-forest-700 sm:text-4xl lg:text-5xl">
+          <h2 className="font-serif text-3xl font-medium leading-tight text-navy-800 sm:text-4xl lg:text-5xl">
             Prohlédněte si areál
           </h2>
           <p className="mt-5 text-base text-ink/60">

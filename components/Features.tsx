@@ -41,19 +41,19 @@ export default function Features() {
       <div className="mx-auto max-w-7xl">
         <Reveal className="mx-auto max-w-2xl text-center">
           <p className="eyebrow mb-5">Vybavení</p>
-          <h2 className="font-serif text-3xl font-medium leading-tight text-forest-700 sm:text-4xl lg:text-5xl">
+          <h2 className="font-serif text-3xl font-medium leading-tight text-navy-800 sm:text-4xl lg:text-5xl">
             Vše, co kompletní jezdecký provoz potřebuje
           </h2>
         </Reveal>
 
-        <div className="mt-16 grid grid-cols-1 gap-px overflow-hidden rounded-2xl border border-forest-200 bg-forest-200 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-16 grid grid-cols-1 gap-px overflow-hidden rounded-2xl border border-navy-100 bg-navy-100 sm:grid-cols-2 lg:grid-cols-3">
           {features.map((f, i) => (
             <Reveal
               key={f.title}
               delay={(i % 3) * 100}
-              className="group bg-cream p-8 transition-colors duration-300 hover:bg-forest-50 lg:p-10"
+              className="group bg-cream p-8 transition-colors duration-300 hover:bg-navy-50 lg:p-10"
             >
-              <div className="mb-5 text-gold-500">
+              <div className="mb-5 text-navy-400">
                 <svg
                   width="32"
                   height="32"
@@ -67,7 +67,7 @@ export default function Features() {
                   {f.icon}
                 </svg>
               </div>
-              <h3 className="font-serif text-2xl text-forest-700">{f.title}</h3>
+              <h3 className="font-serif text-2xl text-navy-800">{f.title}</h3>
               <p className="mt-3 text-base leading-relaxed text-ink/70">{f.text}</p>
             </Reveal>
           ))}
