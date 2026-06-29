@@ -1,26 +1,100 @@
 @import "tailwindcss";
 
+@theme {
+  /* Barevná paleta */
+  --color-cream: #f8f5ef;
+  --color-cream-dark: #efe9dd;
+
+  --color-forest-50: #f1f5f2;
+  --color-forest-100: #dde7e0;
+  --color-forest-200: #bccfc2;
+  --color-forest-300: #91ad9b;
+  --color-forest-400: #5f8470;
+  --color-forest-500: #3f6552;
+  --color-forest-600: #2c4a3b;
+  --color-forest-700: #1f3d2f;
+  --color-forest-800: #182e24;
+  --color-forest-900: #11211a;
+
+  --color-navy-400: #3a517a;
+  --color-navy-500: #25395e;
+  --color-navy-600: #1b2c4b;
+  --color-navy-700: #16243d;
+  --color-navy-800: #101a2c;
+  --color-navy-900: #0b121f;
+
+  --color-gold-300: #d8c193;
+  --color-gold-400: #c8a86a;
+  --color-gold-500: #b8924a;
+  --color-gold-600: #9c7a3a;
+
+  --color-ink: #1a1a1a;
+
+  /* Fonty */
+  --font-serif: var(--font-cormorant), ui-serif, Georgia, serif;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f8f5ef;
+  --foreground: #1a1a1a;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Drobný gold label styl */
+.eyebrow {
+  font-family: var(--font-sans);
+  text-transform: uppercase;
+  letter-spacing: 0.28em;
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: var(--color-gold-600);
+}
+
+/* Reveal on scroll */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* Jemný Ken Burns efekt na hero */
+@keyframes kenburns {
+  0% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1.16);
+  }
+}
+.kenburns {
+  animation: kenburns 22s ease-out forwards;
 }
