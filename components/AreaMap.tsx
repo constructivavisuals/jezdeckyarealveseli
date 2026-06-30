@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useState, type CSSProperties } from "react";
 import Reveal from "./Reveal";
 
-/* Rozměry zdrojového renderu — souřadnice zón jsou v této soustavě. */
+/* Rozměry zdrojového renderu — souřadnice (hit-plochy, špendlíky) jsou v této soustavě. */
 const W = 1448;
 const H = 1086;
 
@@ -14,10 +14,12 @@ type Zone = {
   title: string;
   desc: string;
   tag: string;
-  /** Jeden či více polygonů (isometrické tvary budov / ploch). */
-  polys?: number[][][];
-  /** Kruhové prvky (kolotoč). */
-  ellipse?: { cx: number; cy: number; rx: number; ry: number };
+  /** Pixel-perfect maska tvaru objektu (alpha) — vykreslí se barevný highlight přesně přes objekt. */
+  mask: string;
+  /** Neviditelné polygony jen pro detekci najetí myší (nemusí přesně kopírovat tvar). */
+  hit?: number[][][];
+  /** Kruhová hit-plocha (kolotoč). */
+  hitEllipse?: { cx: number; cy: number; rx: number; ry: number };
   /** Kotva špendlíku a popupu. */
   marker: [number, number];
 };
@@ -30,29 +32,9 @@ const zones: Zone[] = [
     title: "Ubytování",
     desc: "Bydlení přímo v areálu — buď dva samostatné byty, nebo celý dům. S možností dalšího rozšíření kapacity.",
     tag: "2v1 — byty nebo dům",
-    polys: [
-      [
-        [338, 522],
-        [430, 500],
-        [522, 546],
-        [546, 562],
-        [470, 582],
-        [372, 580],
-        [346, 556],
-      ],
-      [
-        [250, 624],
-        [350, 596],
-        [452, 606],
-        [522, 648],
-        [520, 706],
-        [468, 768],
-        [322, 772],
-        [262, 700],
-        [240, 660],
-      ],
-    ],
-    marker: [372, 672],
+    mask: "/images/masks/ubytovani.webp",
+    hit: [[[292, 474], [408, 474], [408, 716], [296, 716]]],
+    marker: [348, 642],
   },
   {
     id: "jizdarna",
@@ -61,15 +43,9 @@ const zones: Zone[] = [
     title: "Venkovní jízdárna",
     desc: "Prostorná písková jízdárna o rozloze přibližně 1000 m² s parkurovým vybavením — výcvik i každodenní práce s koňmi.",
     tag: "≈ 1000 m²",
-    polys: [
-      [
-        [426, 456],
-        [629, 447],
-        [687, 693],
-        [450, 705],
-      ],
-    ],
-    marker: [540, 575],
+    mask: "/images/masks/jizdarna.webp",
+    hit: [[[372, 438], [668, 446], [705, 702], [432, 718]]],
+    marker: [545, 580],
   },
   {
     id: "senik",
@@ -78,18 +54,9 @@ const zones: Zone[] = [
     title: "Seník a slamník",
     desc: "Kryté uskladnění sena a slámy hned vedle stájí — zásoby vždy po ruce po celý rok.",
     tag: "Sklad sena a slámy",
-    polys: [
-      [
-        [655, 414],
-        [718, 405],
-        [800, 418],
-        [792, 488],
-        [722, 500],
-        [660, 495],
-        [636, 452],
-      ],
-    ],
-    marker: [718, 452],
+    mask: "/images/masks/senik.webp",
+    hit: [[[628, 386], [816, 386], [816, 512], [628, 512]]],
+    marker: [722, 450],
   },
   {
     id: "staj",
@@ -98,23 +65,9 @@ const zones: Zone[] = [
     title: "Stáj a zázemí",
     desc: "14 stájových boxů (12 vnitřních a 2 venkovní) a kompletní provozní zázemí. Na střeše fotovoltaika pro úsporu energií.",
     tag: "14 boxů + zázemí",
-    polys: [
-      [
-        [840, 426],
-        [898, 465],
-        [906, 498],
-        [956, 596],
-        [945, 650],
-        [918, 700],
-        [912, 768],
-        [862, 762],
-        [856, 685],
-        [850, 600],
-        [842, 512],
-        [826, 468],
-      ],
-    ],
-    marker: [882, 585],
+    mask: "/images/masks/staj.webp",
+    hit: [[[828, 418], [918, 452], [978, 600], [958, 668], [922, 728], [858, 728], [842, 632], [832, 470]]],
+    marker: [888, 560],
   },
   {
     id: "kolotoc",
@@ -123,8 +76,9 @@ const zones: Zone[] = [
     title: "Kolotoč pro koně",
     desc: "Automatický kolotoč pro pravidelný pohyb, rozcvičení a kondiční trénink koní bez nutnosti lonžování.",
     tag: "Pohyb a kondice",
-    ellipse: { cx: 770, cy: 632, rx: 62, ry: 50 },
-    marker: [770, 632],
+    mask: "/images/masks/kolotoc.webp",
+    hitEllipse: { cx: 772, cy: 623, rx: 66, ry: 59 },
+    marker: [772, 623],
   },
   {
     id: "vybehy",
@@ -133,55 +87,35 @@ const zones: Zone[] = [
     title: "Výběhy",
     desc: "Rozlehlé travnaté výběhy rozdělené do více ohrad pro celodenní volný pohyb koní v bezprostřední blízkosti stájí.",
     tag: "Více travnatých ohrad",
-    polys: [
-      [
-        [335, 356],
-        [380, 182],
-        [778, 120],
-        [1050, 152],
-        [1018, 300],
-        [770, 398],
-        [640, 415],
-        [430, 432],
-        [332, 402],
-      ],
-      [
-        [968, 318],
-        [1058, 298],
-        [1312, 548],
-        [1278, 775],
-        [1010, 820],
-        [965, 560],
-      ],
-      [
-        [472, 722],
-        [955, 715],
-        [905, 860],
-        [565, 872],
-      ],
+    mask: "/images/masks/vybehy.webp",
+    hit: [
+      [[246, 140], [1055, 115], [1065, 305], [810, 410], [430, 430], [250, 410]],
+      [[955, 290], [1350, 545], [1308, 805], [1005, 835], [955, 560]],
+      [[445, 705], [975, 700], [920, 882], [555, 892]],
     ],
-    marker: [690, 250],
+    marker: [600, 232],
   },
 ];
 
-function ZoneShape({ zone, on }: { zone: Zone; on: boolean }) {
-  const common = {
-    fill: on ? zone.color : "transparent",
-    fillOpacity: on ? 0.34 : 0,
-    stroke: zone.color,
-    strokeWidth: on ? 3 : 0,
-    strokeLinejoin: "round" as const,
-    style: { pointerEvents: "all" as const, transition: "fill-opacity .25s, stroke-width .25s" },
-  };
+/** Barevný highlight masked přesně tvarem objektu. */
+function ZoneHighlight({ zone, on }: { zone: Zone; on: boolean }) {
+  const mask = `url(${zone.mask})`;
   return (
-    <>
-      {zone.polys?.map((poly, i) => (
-        <polygon key={i} points={poly.map((p) => p.join(",")).join(" ")} {...common} />
-      ))}
-      {zone.ellipse && (
-        <ellipse cx={zone.ellipse.cx} cy={zone.ellipse.cy} rx={zone.ellipse.rx} ry={zone.ellipse.ry} {...common} />
-      )}
-    </>
+    <div
+      aria-hidden
+      className="pointer-events-none absolute inset-0"
+      style={{
+        WebkitMaskImage: mask,
+        maskImage: mask,
+        WebkitMaskSize: "100% 100%",
+        maskSize: "100% 100%",
+        WebkitMaskRepeat: "no-repeat",
+        maskRepeat: "no-repeat",
+        background: zone.color,
+        opacity: on ? 0.5 : 0,
+        transition: "opacity .3s ease",
+      }}
+    />
   );
 }
 
@@ -244,11 +178,15 @@ export default function AreaMap() {
               className="absolute inset-0 h-full w-full object-cover"
             />
 
-            {/* Vrstva zón */}
+            {/* Pixel-perfect highlighty (maskované tvarem objektu) */}
+            {zones.map((z) => (
+              <ZoneHighlight key={z.id} zone={z} on={hovered === z.id || active === z.id} />
+            ))}
+
+            {/* Neviditelná vrstva pro detekci najetí / klik */}
             <svg
               viewBox={`0 0 ${W} ${H}`}
               className="absolute inset-0 h-full w-full"
-              style={{ pointerEvents: "none" }}
               aria-hidden
             >
               {zones.map((z) => (
@@ -260,8 +198,20 @@ export default function AreaMap() {
                     setActive((a) => (a === z.id ? null : z.id));
                   }}
                   style={{ cursor: "pointer" }}
+                  fill="transparent"
                 >
-                  <ZoneShape zone={z} on={hovered === z.id || active === z.id} />
+                  {z.hit?.map((poly, i) => (
+                    <polygon key={i} points={poly.map((p) => p.join(",")).join(" ")} style={{ pointerEvents: "all" }} />
+                  ))}
+                  {z.hitEllipse && (
+                    <ellipse
+                      cx={z.hitEllipse.cx}
+                      cy={z.hitEllipse.cy}
+                      rx={z.hitEllipse.rx}
+                      ry={z.hitEllipse.ry}
+                      style={{ pointerEvents: "all" }}
+                    />
+                  )}
                 </g>
               ))}
             </svg>
