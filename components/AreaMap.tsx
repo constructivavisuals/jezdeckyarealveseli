@@ -7,6 +7,9 @@ import Reveal from "./Reveal";
 const W = 1448;
 const H = 1086;
 
+/* Jednotná tmavě modrá pro všechny highlighty, špendlíky a legendu. */
+const NAVY = "#1d3052";
+
 type Zone = {
   id: string;
   n: number;
@@ -111,7 +114,7 @@ function ZoneHighlight({ zone, on }: { zone: Zone; on: boolean }) {
         maskSize: "100% 100%",
         WebkitMaskRepeat: "no-repeat",
         maskRepeat: "no-repeat",
-        background: zone.color,
+        background: NAVY,
         opacity: on ? 0.5 : 0,
         transition: "opacity .3s ease",
       }}
@@ -234,21 +237,19 @@ export default function AreaMap() {
                   className="absolute z-10 -translate-x-1/2 -translate-y-1/2"
                   style={{ left: `${left}%`, top: `${top}%` }}
                 >
-                  <span className="relative flex h-7 w-7 items-center justify-center sm:h-8 sm:w-8">
+                  <span className="relative flex h-4 w-4 items-center justify-center sm:h-[1.15rem] sm:w-[1.15rem]">
                     {!on && (
                       <span
                         className="map-pin-ring absolute inset-0 rounded-full"
-                        style={{ background: z.color }}
+                        style={{ background: NAVY }}
                       />
                     )}
                     <span
-                      className={`relative flex h-full w-full items-center justify-center rounded-full text-[0.7rem] font-bold text-white ring-2 ring-white transition-transform duration-300 sm:text-xs ${
-                        on ? "scale-110 shadow-lg" : ""
+                      className={`relative h-full w-full rounded-full ring-2 ring-white transition-transform duration-300 ${
+                        on ? "scale-125 shadow-lg" : ""
                       }`}
-                      style={{ background: z.color }}
-                    >
-                      {z.n}
-                    </span>
+                      style={{ background: NAVY }}
+                    />
                   </span>
                 </button>
               );
@@ -290,13 +291,11 @@ export default function AreaMap() {
                         <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
                       </svg>
                     </button>
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-2.5">
                       <span
-                        className="flex h-7 w-7 items-center justify-center rounded-full text-xs font-bold text-white"
-                        style={{ background: activeZone.color }}
-                      >
-                        {activeZone.n}
-                      </span>
+                        className="h-2.5 w-2.5 shrink-0 rounded-full"
+                        style={{ background: NAVY }}
+                      />
                       <span className="text-[0.62rem] font-semibold uppercase tracking-[0.2em] text-navy-400">
                         {activeZone.tag}
                       </span>
@@ -330,11 +329,9 @@ export default function AreaMap() {
                   }`}
                 >
                   <span
-                    className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-[0.6rem] font-bold text-white"
-                    style={{ background: z.color }}
-                  >
-                    {z.n}
-                  </span>
+                    className="h-2.5 w-2.5 shrink-0 rounded-full"
+                    style={{ background: NAVY }}
+                  />
                   <span className="text-[0.78rem] font-semibold tracking-tight text-navy-800">
                     {z.title}
                   </span>
