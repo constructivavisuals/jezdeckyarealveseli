@@ -1,7 +1,8 @@
 "use client";
 
-import { useCallback, useEffect, useState, type CSSProperties } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Reveal from "./Reveal";
+import Photo from "./Photo";
 
 /* Rozměry zdrojového renderu — souřadnice (hit-plochy, špendlíky) jsou v této soustavě. */
 const W = 1448;
@@ -25,6 +26,8 @@ type Zone = {
   hitEllipse?: { cx: number; cy: number; rx: number; ry: number };
   /** Kotva špendlíku a popupu. */
   marker: [number, number];
+  /** Fotky do detailního panelu (prázdné → placeholder „Fotografie připravujeme"). */
+  photos?: string[];
 };
 
 const zones: Zone[] = [
@@ -38,6 +41,7 @@ const zones: Zone[] = [
     mask: "/images/masks/ubytovani.webp",
     hit: [[[292, 474], [408, 474], [408, 716], [296, 716]]],
     marker: [348, 642],
+    photos: ["/images/house.jpg", "/images/house-arena.jpg"],
   },
   {
     id: "jizdarna",
@@ -49,6 +53,7 @@ const zones: Zone[] = [
     mask: "/images/masks/jizdarna.webp",
     hit: [[[372, 438], [668, 446], [705, 702], [432, 718]]],
     marker: [545, 580],
+    photos: ["/images/arena.jpg"],
   },
   {
     id: "senik",
@@ -71,6 +76,7 @@ const zones: Zone[] = [
     mask: "/images/masks/staj.webp",
     hit: [[[828, 418], [918, 452], [978, 600], [958, 668], [922, 728], [858, 728], [842, 632], [832, 470]]],
     marker: [888, 560],
+    photos: ["/images/stable.jpg"],
   },
   {
     id: "kolotoc",
@@ -91,6 +97,7 @@ const zones: Zone[] = [
     desc: "Rozlehlé travnaté výběhy rozdělené do více ohrad pro celodenní volný pohyb koní v bezprostřední blízkosti stájí.",
     tag: "Více travnatých ohrad",
     mask: "/images/masks/vybehy.webp",
+    photos: ["/images/overview.jpg", "/images/arial-1.jpg", "/images/arial-3.jpg"],
     hit: [
       [[246, 140], [1055, 115], [1065, 305], [810, 410], [430, 430], [250, 410]],
       [[955, 290], [1350, 545], [1308, 805], [1005, 835], [955, 560]],
@@ -119,6 +126,69 @@ function ZoneHighlight({ zone, on }: { zone: Zone; on: boolean }) {
         transition: "opacity .3s ease",
       }}
     />
+  );
+}
+
+/** Detailní panel ve stylu „Nabídka" — index, název, popis a mřížka fotek. */
+function ZoneDetail({ zone, close }: { zone: Zone; close: () => void }) {
+  const photos = zone.photos ?? [];
+  const odd = photos.length % 2 === 1;
+  return (
+    <div
+      role="dialog"
+      aria-label={zone.title}
+      onClick={(e) => e.stopPropagation()}
+      className="fixed inset-x-3 bottom-24 z-[60] max-h-[72vh] overflow-y-auto bg-white p-6 shadow-2xl ring-1 ring-navy-100 lg:static lg:inset-auto lg:bottom-auto lg:z-auto lg:max-h-none lg:w-[21rem] lg:shrink-0 lg:overflow-visible lg:p-0 lg:shadow-none lg:ring-0 xl:w-[26rem]"
+    >
+      <div className="flex items-start justify-between">
+        <span className="index text-sm text-navy-400">{`0${zone.n}`}</span>
+        <button
+          type="button"
+          onClick={close}
+          aria-label="Zavřít"
+          className="-mr-1 -mt-1 flex h-8 w-8 items-center justify-center text-navy-400 transition-colors hover:text-navy-900"
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden>
+            <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+          </svg>
+        </button>
+      </div>
+
+      <h3 className="mt-3 display-light text-3xl text-navy-900 lg:text-4xl">
+        {zone.title}
+      </h3>
+      <span className="mt-4 block h-px w-12 bg-navy-300" />
+      <p className="mt-2 text-[0.62rem] font-semibold uppercase tracking-[0.2em] text-navy-400">
+        {zone.tag}
+      </p>
+      <p className="mt-4 text-[0.95rem] leading-relaxed text-ink/65">
+        {zone.desc}
+      </p>
+
+      <p className="eyebrow mt-7">Fotografie</p>
+      {photos.length > 0 ? (
+        <div className="mt-4 grid grid-cols-2 gap-2">
+          {photos.map((src, i) => (
+            <div
+              key={src}
+              className={`relative overflow-hidden bg-mist ${
+                odd && i === 0 ? "col-span-2 aspect-[16/9]" : "aspect-[4/3]"
+              }`}
+            >
+              <Photo
+                src={src}
+                alt={`${zone.title} — foto ${i + 1}`}
+                sizes="(min-width: 1024px) 13rem, (min-width: 640px) 45vw, 90vw"
+              />
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div className="relative mt-4 aspect-[16/9] overflow-hidden">
+          <Photo alt={zone.title} label="Fotografie připravujeme" />
+        </div>
+      )}
+    </div>
   );
 }
 
@@ -164,12 +234,17 @@ export default function AreaMap() {
         </Reveal>
 
         <Reveal fade delay={120}>
-          <div
-            className="relative mt-12 w-full overflow-hidden ring-1 ring-navy-100"
-            style={{ aspectRatio: `${W} / ${H}` }}
-            onClick={close}
-            onMouseLeave={() => setHovered(null)}
-          >
+          <div className="mt-12 flex flex-col gap-8 lg:flex-row lg:items-start">
+            {activeZone && <ZoneDetail zone={activeZone} close={close} />}
+
+            <div
+              className={`relative w-full overflow-hidden ring-1 ring-navy-100 transition-all duration-500 ${
+                active ? "lg:flex-1" : "lg:mx-auto lg:max-w-4xl"
+              }`}
+              style={{ aspectRatio: `${W} / ${H}` }}
+              onClick={close}
+              onMouseLeave={() => setHovered(null)}
+            >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/images/areal-3d.webp"
@@ -255,60 +330,7 @@ export default function AreaMap() {
               );
             })}
 
-            {/* Popup s detailem */}
-            {activeZone &&
-              (() => {
-                const mx = activeZone.marker[0] / W;
-                const my = activeZone.marker[1] / H;
-                const flipX = mx > 0.6;
-                const flipY = my > 0.45;
-                const tx = flipX ? "calc(-100% - 16px)" : "16px";
-                const ty = flipY ? "calc(-100% - 16px)" : "16px";
-                // Pozice řešena čistě přes CSS: na mobilu spodní „sheet" nad
-                // lištou StickyCta, od lg ukotvená karta u špendlíku (přes
-                // CSS proměnné — žádný JS media-query, žádné riziko hydratace).
-                return (
-                  <div
-                    role="dialog"
-                    aria-label={activeZone.title}
-                    onClick={(e) => e.stopPropagation()}
-                    className="fixed inset-x-3 bottom-24 z-[60] bg-white p-6 shadow-2xl ring-1 ring-navy-100 lg:absolute lg:inset-x-auto lg:bottom-auto lg:z-20 lg:w-[19rem] lg:left-[var(--px)] lg:top-[var(--py)] lg:[transform:var(--tf)]"
-                    style={
-                      {
-                        "--px": `${mx * 100}%`,
-                        "--py": `${my * 100}%`,
-                        "--tf": `translate(${tx}, ${ty})`,
-                      } as CSSProperties
-                    }
-                  >
-                    <button
-                      type="button"
-                      onClick={close}
-                      aria-label="Zavřít"
-                      className="absolute right-3 top-3 flex h-8 w-8 items-center justify-center text-navy-400 transition-colors hover:text-navy-900"
-                    >
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden>
-                        <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
-                      </svg>
-                    </button>
-                    <div className="flex items-center gap-2.5">
-                      <span
-                        className="h-2.5 w-2.5 shrink-0 rounded-full"
-                        style={{ background: NAVY }}
-                      />
-                      <span className="text-[0.62rem] font-semibold uppercase tracking-[0.2em] text-navy-400">
-                        {activeZone.tag}
-                      </span>
-                    </div>
-                    <h3 className="mt-4 text-xl font-bold tracking-tight text-navy-900">
-                      {activeZone.title}
-                    </h3>
-                    <p className="mt-2 text-[0.9rem] leading-relaxed text-ink/65">
-                      {activeZone.desc}
-                    </p>
-                  </div>
-                );
-              })()}
+            </div>
           </div>
         </Reveal>
 
