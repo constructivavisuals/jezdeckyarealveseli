@@ -18,7 +18,7 @@ const pillars = [
 
 export default function Intro() {
   return (
-    <section id="o-arealu" className="bg-white px-6 py-24 lg:px-12 lg:py-36">
+    <section id="o-arealu" className="bg-white px-6 pt-24 pb-16 lg:px-12 lg:pt-36 lg:pb-20">
       <div className="mx-auto max-w-7xl">
         <Reveal>
           <div className="flex items-center gap-4 text-navy-400">

@@ -210,7 +210,7 @@ export default function AreaMap() {
   const activeZone = zones.find((z) => z.id === active) ?? null;
 
   return (
-    <section id="plan-arealu" className="bg-white px-6 py-24 lg:px-12 lg:py-36">
+    <section id="plan-arealu" className="bg-white px-6 pt-12 pb-16 lg:px-12 lg:pt-16 lg:pb-24">
       <div className="mx-auto max-w-7xl">
         <Reveal>
           <div className="flex items-center gap-4 text-navy-400">
@@ -234,9 +234,7 @@ export default function AreaMap() {
         </Reveal>
 
         <Reveal fade delay={120}>
-          <div className="mt-12 flex flex-col gap-8 lg:flex-row lg:items-start">
-            {activeZone && <ZoneDetail zone={activeZone} close={close} />}
-
+          <div className="mt-10 flex flex-col gap-8 lg:flex-row lg:items-start">
             <div
               className={`relative w-full overflow-hidden ring-1 ring-navy-100 transition-all duration-500 ${
                 active ? "lg:flex-1" : "lg:mx-auto lg:max-w-4xl"
@@ -331,6 +329,8 @@ export default function AreaMap() {
             })}
 
             </div>
+
+            {activeZone && <ZoneDetail zone={activeZone} close={close} />}
           </div>
         </Reveal>
 
