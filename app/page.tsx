@@ -47,8 +47,8 @@ export default function Home() {
       <main>
         <Hero />
         <Intro />
-        <AreaMap />
         <Features />
+        <AreaMap />
 
         <SplitSection
           id="ustajeni"
